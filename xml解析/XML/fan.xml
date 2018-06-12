@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE persons SYSTEM "fanxh.dtd"> -->
+
+<persons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.example.org/fanxh"
+		xsi:schemaLocation="http://www.example.org/fanxh fanxh.xsd">
+	<person>
+		<name>范小辉</name>
+		<age>23</age>
+		<sex>男</sex>
+	</person>
+</persons>
