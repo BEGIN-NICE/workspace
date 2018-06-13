@@ -9,10 +9,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class demo01 implements Servlet {
-
+	
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("1111111111");
 	}
 
 	public ServletConfig getServletConfig() {

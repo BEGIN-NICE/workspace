@@ -9,22 +9,79 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
-  	<servlet-name>demo01</servlet-name>
-  	<servlet-class>com.itheima.a_servlet.demo01</servlet-class>
+    <servlet-name>demo01</servlet-name>
+    <servlet-class>com.itheima.a_servlet.demo01</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>demo01</servlet-name>
-  	<url-pattern>/demo01_Servlet</url-pattern>
+    <servlet-name>demo01</servlet-name>
+    <url-pattern>/demo01_Servlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>demo02</servlet-name>
-  	<servlet-class>com.itheima.a_servlet.demo02</servlet-class>
+    <servlet-name>demo02</servlet-name>
+    <servlet-class>com.itheima.a_servlet.demo02</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>demo02</servlet-name>
-  	<url-pattern>/demo02_Servlet</url-pattern>
+    <servlet-name>demo02</servlet-name>
+    <url-pattern>/demo02_Servlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.itheima.servlet.LoginServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>JSPServlet</display-name>
+    <servlet-name>JSPServlet</servlet-name>
+    <servlet-class>com.itheima.servlet.JSPServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSPServlet</servlet-name>
+    <url-pattern>/JSPServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CountServlet</display-name>
+    <servlet-name>CountServlet</servlet-name>
+    <servlet-class>com.itheima.servlet.CountServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CountServlet</servlet-name>
+    <url-pattern>/CountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FengJieServlet</display-name>
+    <servlet-name>FengJieServlet</servlet-name>
+    <servlet-class>com.itheima.a_servlet.FengJieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FengJieServlet</servlet-name>
+    <url-pattern>/FengJieServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletConfig_Servlet</display-name>
+    <servlet-name>ServletConfig_Servlet</servlet-name>
+    <servlet-class>com.itheima.servlet.ServletConfig_Servlet</servlet-class>
+    <!-- 配置初始化参数 -->
+    <init-param>
+    	<param-name>username</param-name>
+    	<param-value>fanxh</param-value>
+    </init-param>
+    <init-param>
+    	<param-name>password</param-name>
+    	<param-value>as</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletConfig_Servlet</servlet-name>
+    <url-pattern>/ServletConfig_Servlet</url-pattern>
   </servlet-mapping>
 </web-app>
