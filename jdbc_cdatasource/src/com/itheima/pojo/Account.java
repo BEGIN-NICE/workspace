@@ -4,6 +4,11 @@ public class Account {
 	private int id;
 	private String name;
 	private int money;
+	
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

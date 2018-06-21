@@ -2,7 +2,7 @@
 <!-- <!DOCTYPE persons SYSTEM "fanxh.dtd"> -->
 
 <persons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns="http://www.example.org/fanxh"
+		xmlns="http://www.example.org/fanxh" 
 		xsi:schemaLocation="http://www.example.org/fanxh fanxh.xsd">
 	<person>
 		<name>范小辉</name>

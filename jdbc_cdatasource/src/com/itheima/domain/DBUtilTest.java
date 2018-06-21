@@ -3,7 +3,9 @@ package com.itheima.domain;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,6 +29,7 @@ import org.junit.Test;
 import com.itheima.jdbc.utils.DruidUtil;
 import com.itheima.jdbc.utils.c3p0Util;
 import com.itheima.pojo.Account;
+
 
 public class DBUtilTest {
 	
@@ -109,7 +112,36 @@ public class DBUtilTest {
 	}
 	
 	/**
-	 * 查询操作
+	 * 查询操作，查询结果为多个
+	 * @throws SQLException 
+	 */
+	@Test
+	public void selectManyTest() throws SQLException {
+		QueryRunner qr = new QueryRunner(c3p0Util.getDataSource());
+		List<Account> list = qr.query("select * from account",new ResultSetHandler<List<Account>>() {
+
+			@Override
+			public List<Account> handle(ResultSet rs) throws SQLException {
+				ArrayList<Account> list = new ArrayList<>();
+				while(rs.next()) {
+					Account a = new Account();
+					a.setId(rs.getInt("id"));
+					a.setName(rs.getString("name"));
+					a.setMoney(rs.getInt("money"));
+					list.add(a);
+				}
+				return list;
+			}
+			
+		});
+		for (Account account : list) {
+			System.out.println(account);
+		}
+		
+	}
+	
+	/**
+	 * 查询操作:查询结果为单个
 	 * @throws SQLException 
 	 */
 	@Test

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload= function(){
+		var t =3;
+		setInterval( function(){
+			t--;
+			document.getElementById("time").innerHTML=t;
+			if(t==0){
+				window.location.href="/webday15/CountServlet"
+			}
+			
+		}, 1000);	
+	};
+</script>
+</head>
+<body>
+	<h1>页面将在<span id="time">5</span>秒后跳转</h1>
+</body>
+</html>
