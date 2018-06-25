@@ -17,8 +17,10 @@ public class ProductDeleteAllServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String[] ids = request.getParameterValues("ids");
-		ProductService productService = new ProductService();
-		productService.deleteAll(ids);
+		if(ids != null) {
+			ProductService productService = new ProductService();
+			productService.deleteAll(ids);
+		}
 		request.getRequestDispatcher("/ProductServlet").forward(request, response);
 	}
 

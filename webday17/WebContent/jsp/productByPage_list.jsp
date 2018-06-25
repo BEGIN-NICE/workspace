@@ -8,6 +8,23 @@
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/ajax/aboutInfo.js"></script>
+<style type="text/css">
+	#aboutInfo{
+		border: 1px solid;
+		width: 150px;
+		opacity:1;
+		background:white;
+		filter:alpha(opacity:100);
+		position: absolute;
+		margin-left: 54px;
+		margin-top: 103px;
+		display: none;
+	}
+	#innerInfo{
+		width:150px;
+	}
+</style>
 <script type="text/javascript">
 	function addPage() {
 		window.location.href= "/webday17/jsp/addProduct.jsp";
@@ -32,16 +49,22 @@
 </script>
 </head>
 <body>
+<!-- 设置搜索提示按钮 -->
+<div id="aboutInfo" >
+</div>
+					
 	<h1>商品的分页列表页面</h1>
 	<form id="form1"
 		action="${pageContext.request.contextPath }/ProductSearchServlet"
 		method="post">
 		<table border="1px" width="800">
 			<tr height="60">
-				<td colspan="8">名称：<input type="text" name="pname"><input
+				<td colspan="8">名称：<input id="innerInfo" type="text" name="pname"><input
 					type="submit" value="查询">&nbsp;&nbsp;&nbsp;&nbsp; <input
 					type="button" value="添加" onclick="addPage()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="submit" value="批量删除" onclick="delMore()">
+					
+				
 				</td>
 			</tr>
 			<tr>

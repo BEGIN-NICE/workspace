@@ -23,18 +23,19 @@ import com.itheima.utils.UUIDUtil;
  */
 public class ProductAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String token = request.getParameter("token");
 			Object token2 = request.getSession().getAttribute("token");
 			request.getSession().removeAttribute("token");
-			if(token==null || token2==null || !token.equals(token2)) {
+			if (token == null || token2 == null || !token.equals(token2)) {
 				request.setAttribute("msg", "数据已经提交，请不要重复提交数据！！！");
-				request.getRequestDispatcher("/jsp/token.jsp").forward(request, response);;
+				request.getRequestDispatcher("/jsp/token.jsp").forward(request, response);
 				return;
 			}
-			
+
 			Map<String, String[]> map = request.getParameterMap();
 			Product product = new Product();
 			BeanUtils.populate(product, map);
@@ -42,27 +43,28 @@ public class ProductAddServlet extends HttpServlet {
 			product.setPdate(new Date());
 			ProductAddService productAddService = new ProductAddService();
 			int count = productAddService.addProduct(product);
-			
-			if(count != 0) {
-//				response.sendRedirect(request.getContextPath()+"/ProductServlet");
+
+			if (count != 0) {
+				// response.sendRedirect(request.getContextPath()+"/ProductServlet");
 				request.getRequestDispatcher("/ProductServlet").forward(request, response);
-			}else {
+			} else {
 				response.getWriter().println("something is error !!!");
 			}
-			
+
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-	
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

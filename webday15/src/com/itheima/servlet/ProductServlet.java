@@ -62,8 +62,8 @@ public class ProductServlet extends HttpServlet {
 				response.addCookie(c);
 			}
 		}
-	//	request.getRequestDispatcher("/WEB01/product_info.htm").forward(request, response);
-	response.sendRedirect("/webday15/WEB01/product_info.htm");
+		request.getRequestDispatcher("/WEB01/product_info.htm").forward(request, response);
+	//response.sendRedirect("/webday15/WEB01/product_info.htm");
 	
 	}
 

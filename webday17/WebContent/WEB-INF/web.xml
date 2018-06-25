@@ -89,4 +89,14 @@
     <servlet-name>ProductByPageServlet</servlet-name>
     <url-pattern>/ProductByPageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AboutInfoServlet</display-name>
+    <servlet-name>AboutInfoServlet</servlet-name>
+    <servlet-class>com.itheima.product.web.servlet.AboutInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AboutInfoServlet</servlet-name>
+    <url-pattern>/AboutInfoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
