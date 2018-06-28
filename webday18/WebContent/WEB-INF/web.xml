@@ -79,4 +79,24 @@
     <servlet-name>CityJsonServlet</servlet-name>
     <url-pattern>/CityJsonServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProvinceCityServlet2</display-name>
+    <servlet-name>ProvinceCityServlet2</servlet-name>
+    <servlet-class>com.itheima.servlet.ProvinceCityServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProvinceCityServlet2</servlet-name>
+    <url-pattern>/ProvinceCityServlet2</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CityServlet2</display-name>
+    <servlet-name>CityServlet2</servlet-name>
+    <servlet-class>com.itheima.servlet.CityServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CityServlet2</servlet-name>
+    <url-pattern>/CityServlet2</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -13,40 +13,39 @@ import com.itheima.domain.City;
 import com.itheima.service.PCService;
 import com.thoughtworks.xstream.XStream;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-
 /**
- * Servlet implementation class CityJsonServlet
+ * Servlet implementation class CityServlet2
  */
-public class CityJsonServlet extends HttpServlet {
+public class CityServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CityServlet2() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
 			String pid = request.getParameter("pid");
 			PCService pcService = new PCService();
 			List<City> list = pcService.findCityBypId(pid);
 			
-			//指定json数据中不包含某些数据
-			JsonConfig jsonConfig = new JsonConfig();
-			jsonConfig.setExcludes(new String[] {"pid","cid"});
-			JSONArray jsonArray2 = JSONArray.fromObject(list, jsonConfig);
-			
-			System.out.println(jsonArray2);
-			//将list集合转成json文件
-			JSONArray jsonArray = JSONArray.fromObject(list);
-			JSONObject jsonObject = JSONObject.fromObject(list.get(0));
-			System.out.println(jsonObject);
-			System.out.println(jsonArray);
+			XStream xStream = new XStream();
+			xStream.alias("city", City.class);
+			xStream.useAttributeFor(City.class, "cid");
+			xStream.useAttributeFor(City.class, "city");
+			xStream.useAttributeFor(City.class, "pid");
+			String xmlStr = xStream.toXML(list);
 			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().print(jsonArray);
+			response.getWriter().print(xmlStr);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -10,7 +10,12 @@
 
 
 <a href="${pageContext.request.contextPath }/ProvinceCityServlet?data=xml">省市二级联动xml</a>
-
+<hr/>
+<a href="${pageContext.request.contextPath }/ProvinceCityServlet2?data=xml">省市二级联动xml_2</a>
+<hr/>
 <a href="${pageContext.request.contextPath }/ProvinceCityServlet?data=json">省市二级联动json</a>
+
+
+
 </body>
 </html>
