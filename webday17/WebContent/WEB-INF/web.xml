@@ -89,6 +89,16 @@
     <servlet-name>ProductByPageServlet</servlet-name>
     <url-pattern>/ProductByPageServlet</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ProductByPageServlet2</display-name>
+    <servlet-name>ProductByPageServlet2</servlet-name>
+    <servlet-class>com.itheima.product.web.servlet.ProductByPageServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductByPageServlet2</servlet-name>
+    <url-pattern>/ProductByPageServlet2</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>AboutInfoServlet</display-name>

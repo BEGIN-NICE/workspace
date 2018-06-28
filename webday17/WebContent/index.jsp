@@ -11,5 +11,7 @@
 <h1>欢迎来到###商城</h1>
 <h3><a href="${pageContext.request.contextPath }/ProductServlet">商品列表</a></h3>
 <h3><a href="${pageContext.request.contextPath }/ProductByPageServlet?currPage=1">商品分页列表</a></h3>
+<h3><a href="${pageContext.request.contextPath }/ProductByPageServlet2?currPage=1">商品分页列表2</a></h3>
+
 </body>
 </html>

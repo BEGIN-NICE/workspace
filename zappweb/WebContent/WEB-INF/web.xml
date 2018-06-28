@@ -19,4 +19,14 @@
     <servlet-name>FileDownLoadServlet</servlet-name>
     <url-pattern>/FileDownLoadServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxServlet</display-name>
+    <servlet-name>AjaxServlet</servlet-name>
+    <servlet-class>com.itheima.demo4_ajax.servlet.AjaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxServlet</servlet-name>
+    <url-pattern>/AjaxServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

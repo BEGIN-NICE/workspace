@@ -119,5 +119,38 @@ public class ProductService {
 		pageBean.setList(list);
 		return pageBean;
 	}
+	
+	
+	/**
+	 * 分页查询2
+	 * @param strCurrPage
+	 * @return
+	 * @throws SQLException 
+	 */
+	public PageBean findByPage2(String strCurrPage,String strPageSize) throws SQLException {
+		//数据封装
+		PageBean pageBean = new PageBean();
+		int currPage = Integer.parseInt(strCurrPage);
+		//总的数据条数
+		ProductDao productDao = new ProductDao();
+		Double totalCount = productDao.findCount();
+		//每页数据
+		int pageSize;
+		if(strPageSize==null||Integer.parseInt(strPageSize)>totalCount.intValue()) {
+			pageSize =10;
+		}else {
+			pageSize = Integer.parseInt(strPageSize);
+		}
+		//总的页数
+		int totalPage = (int)Math.ceil(totalCount/pageSize);
+
+		List<Product> list =  productDao.findPageList((currPage-1)*10,pageSize);
+		pageBean.setCurrPage(currPage);
+		pageBean.setTotalPage(totalPage);
+		pageBean.setTotalCount(totalCount);
+		pageBean.setPageSize(pageSize);
+		pageBean.setList(list);
+		return pageBean;
+	}
 
 }

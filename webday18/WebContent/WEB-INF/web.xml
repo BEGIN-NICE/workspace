@@ -49,4 +49,34 @@
     <servlet-name>JqSearchServlet</servlet-name>
     <url-pattern>/JqSearchServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProvinceCityServlet</display-name>
+    <servlet-name>ProvinceCityServlet</servlet-name>
+    <servlet-class>com.itheima.servlet.ProvinceCityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProvinceCityServlet</servlet-name>
+    <url-pattern>/ProvinceCityServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CityServlet</display-name>
+    <servlet-name>CityServlet</servlet-name>
+    <servlet-class>com.itheima.servlet.CityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CityServlet</servlet-name>
+    <url-pattern>/CityServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CityJsonServlet</display-name>
+    <servlet-name>CityJsonServlet</servlet-name>
+    <servlet-class>com.itheima.servlet.CityJsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CityJsonServlet</servlet-name>
+    <url-pattern>/CityJsonServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

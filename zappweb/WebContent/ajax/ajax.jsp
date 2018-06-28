@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>功能列表</h1>
-<h3><a href="${pageContext.request.contextPath }/download/download.jsp">文件下载</a></h3>
-
-<h3><a href="${pageContext.request.contextPath }/ajax/ajax.jsp">ajax异步请求</a></h3>
-
+<h3><a href="${pageContext.request.contextPath }/ajax/ajaxdemo1.jsp">ajaxdemo1异步请求</a></h3>
 </body>
 </html>

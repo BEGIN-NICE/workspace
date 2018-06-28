@@ -9,6 +9,10 @@
 <script type="text/javascript">
 	function infolist(str){
 		document.getElementById("innerInfo").value=str.innerHTML;
+		str.style.background="green";
+	}
+	function infolistout(str){
+		str.style.background="white";
 	}
 
 </script>
@@ -17,7 +21,7 @@
 <table>
 	<c:forEach var="info" items="${list }">
 	<tr>
-		<td id = "infolist" onmouseover="infolist(this)" style="width: 100%">${info }</td>
+		<td id = "infolist" onmouseout="infolistout(this)" onmouseover="infolist(this)" style="width: 100%">${info }</td>
 	</tr>
 	</c:forEach>
 </table>

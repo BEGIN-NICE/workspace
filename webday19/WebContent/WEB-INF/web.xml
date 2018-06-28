@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>webday19</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 配置过滤器 -->
+  <filter>
+  	<filter-name>aaa</filter-name>
+  	<filter-class>com.itheima.filter.LifeOfFilter</filter-class>
+  	<init-param>
+  		<param-name>username</param-name>
+  		<param-value>root</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>aaa</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  <!-- 配置监听器 -->
+  <listener>
+    <listener-class>com.itheima.attributelistener.MyHttpSessionAttributeListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.itheima.attributelistener.MyServletContextAttributeListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.itheima.attributelistener.MyServletRequestAttributeListener</listener-class>
+  </listener>
+  <servlet>
+    <description></description>
+    <display-name>TestRequsetServlet</display-name>
+    <servlet-name>TestRequsetServlet</servlet-name>
+    <servlet-class>com.itheima.TestRequsetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestRequsetServlet</servlet-name>
+    <url-pattern>/TestRequsetServlet</url-pattern>
+  </servlet-mapping>
+</web-app>

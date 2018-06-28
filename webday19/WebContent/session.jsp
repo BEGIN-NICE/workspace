@@ -1,3 +1,4 @@
+<%@page import="com.itheima.sessionlistener.JavaBean2"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>功能列表</h1>
-<h3><a href="${pageContext.request.contextPath }/download/download.jsp">文件下载</a></h3>
-
-<h3><a href="${pageContext.request.contextPath }/ajax/ajax.jsp">ajax异步请求</a></h3>
-
+<%
+	JavaBean2 bean2 = new JavaBean2();
+	bean2.setName("fanxh");
+	session.setAttribute("bean2", bean2);
+%>
 </body>
 </html>
