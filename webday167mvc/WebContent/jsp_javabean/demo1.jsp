@@ -15,7 +15,7 @@
 	user.setUsername(username);
 	user.setPassword(password);
 %>
-<%=user.toString() %>
+<%=user.toString()%>
 <hr>
 <jsp:useBean id="user1" class="com.itheima.domain.User" scope="page"></jsp:useBean>
 <%-- <jsp:setProperty property="username" name="user1"/>

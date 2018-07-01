@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<!--  
+	maxIdleSwap 1      :1分钟session不操作会自动序列化到硬盘
+	directory		   :序列化之后文件的位置
+-->
+	<Manager className="org.apache.catalina.session.PersistentManager" maxIdleSwap="1">
+	<Store className="org.apache.catalina.session.FileStore" directory="itheima2"/>
+</Manager>
+</Context>

@@ -19,6 +19,18 @@
     <servlet-name>FileDownLoadServlet</servlet-name>
     <url-pattern>/FileDownLoadServlet</url-pattern>
   </servlet-mapping>
+  
+  
+  <!-- 监听器 -->
+  <listener>
+  	<listener-class>com.itheima.listener.MyHttpSessionListener</listener-class>
+  </listener>
+  
+  <listener>
+  	<listener-class>com.itheima.listener.MyServletRequestAttributeListener</listener-class>
+  </listener>
+  
+  
   <servlet>
     <description></description>
     <display-name>AjaxServlet</display-name>

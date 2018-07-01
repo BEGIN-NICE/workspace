@@ -38,7 +38,11 @@ public class ProvinceCityServlet2 extends HttpServlet {
 			PCService pcService = new PCService();
 			List<Province> list = pcService.findProvince();
 			request.setAttribute("list",list);
-			request.getRequestDispatcher("/ajax_provincetocity2/province_city.jsp").forward(request, response);	
+			if("xml".equals(data)) {
+				request.getRequestDispatcher("/ajax_provincetocity2/province_city.jsp").forward(request, response);	
+			}else {
+				request.getRequestDispatcher("/ajax_provincetocity_json2/province_city.jsp").forward(request, response);	
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -24,7 +24,20 @@
   </filter-mapping>
   
   
-  <!-- 配置监听器 -->
+  <!-- 设置session过期时间（默认时间是30分钟）
+  		如下设置session过期时间为1分钟
+   -->
+  <!-- <session-config>
+  	<session-timeout>1</session-timeout>
+  </session-config> -->
+  
+<!-- 配置关于域对象监听器 -->
+<listener>
+	<listener-class>com.itheima.listener.MyServletContextListener2</listener-class>
+</listener>
+  
+  
+  <!-- 配置关于属性监听器 -->
   <listener>
     <listener-class>com.itheima.attributelistener.MyHttpSessionAttributeListener</listener-class>
   </listener>
