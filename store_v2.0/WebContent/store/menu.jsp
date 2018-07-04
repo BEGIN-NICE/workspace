@@ -1,6 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+
+<script type="text/javascript">
+	$(function(){
+		$.post("${pageContext.request.contextPath}/CategoryServlet",{"method":"findAll"},function(data){
+			$(data).each(function(i,n){
+				$("#category").append("<li><a href='${pageContext.request.contextPath}/ProductServlet?cid="+n.cid+"&method=findByCid&currPage=1'>"+n.cname+"</a></li>")
+			})
+		},"json")
+	})
+	
+	$(function(){
+		$("#category").children().click(function(){
+			$("#category").children().each(function(i,n){
+				$(n).removeClass("active");
+			})
+			$(this).addClass("active");
+		})
+	})
+</script>
+
 <div class="container-fluid">
 	<div class="col-md-4">
 		<img src="${pageContext.request.contextPath }/img/logo2.png" />
@@ -40,18 +60,16 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">首页</a>
+				<a class="navbar-brand" href="${pageContext.request.contextPath }">首页</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="product_list.htm">手机数码<span
+				<ul class="nav navbar-nav" id="category">
+					<!-- <li class="active"><a href="product_list.htm">手机数码<span
 							class="sr-only">(current)</span></a></li>
-					<li><a href="#">电脑办公</a></li>
-					<li><a href="#">电脑办公</a></li>
-					<li><a href="#">电脑办公</a></li>
+					<li><a href="#">电脑办公</a></li> -->
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">

@@ -24,28 +24,30 @@ public class GenericEncodingFilter implements Filter {
 	}
 
 	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 * 采用动态代理的方式完成通用字符集编码
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletRequest proreq = (HttpServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() {
-			
-			@Override
-			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-				if("getParameter".equals(method.getName())) {
-					if("get".equalsIgnoreCase(req.getMethod())) {
-					String value = (String) method.invoke(req, args);
-					value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
-					return value;
-					
-					}else if("post".equalsIgnoreCase(req.getMethod())) {
-						req.setCharacterEncoding("utf-8");
+		HttpServletRequest proreq = (HttpServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(),
+				req.getClass().getInterfaces(), new InvocationHandler() {
+
+					@Override
+					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						if ("getParameter".equals(method.getName())) {
+							if ("get".equalsIgnoreCase(req.getMethod())) {
+								String value = (String) method.invoke(req, args);
+								value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
+								return value;
+
+							} else if ("post".equalsIgnoreCase(req.getMethod())) {
+								req.setCharacterEncoding("utf-8");
+								return method.invoke(req, args);
+							}
+						}
 						return method.invoke(req, args);
 					}
-				}
-				return method.invoke(req, args);
-			}
-		});
+				});
 		chain.doFilter(proreq, response);
 	}
 

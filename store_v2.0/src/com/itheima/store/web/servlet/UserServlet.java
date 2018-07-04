@@ -27,12 +27,12 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 public class UserServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
+/*	*
 	 * 1.转发到首页的的index方法
-	 */
+	 *
 	public String index(HttpServletRequest req, HttpServletResponse resp) {
 		return "/store/index.jsp";
-	}
+	}*/
 
 	// 转发到注册页面
 	public String registerUI(HttpServletRequest req, HttpServletResponse resp) {
@@ -123,6 +123,15 @@ public class UserServlet extends BaseServlet {
 	 */
 	public String login(HttpServletRequest req, HttpServletResponse resp) {
 		try {
+			//验证码校验
+			String code = req.getParameter("code");
+			String code2 = (String) req.getSession().getAttribute("code");
+			req.getSession().removeAttribute("code");
+			if(!code2.equalsIgnoreCase(code)) {
+				req.setAttribute("msg", "验证码错误");
+				return "/store/login.jsp";
+			}
+			
 			Map<String, String[]> map = req.getParameterMap();
 			User user = new User();
 			BeanUtils.populate(user, map);
@@ -176,4 +185,20 @@ public class UserServlet extends BaseServlet {
 		return "/UserServlet?method=loginUI";
 	}
 	
+	/**
+	 * 用户清除浏览记录的方法
+	 */
+	public String clearHistory(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			req.getSession().removeAttribute("history");
+			Cookie cookie = new Cookie("history",null);
+			cookie.setPath(req.getContextPath());
+			cookie.setMaxAge(0);
+			resp.addCookie(cookie);	
+			return "/ProductServlet?method=findByCid";
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
 }

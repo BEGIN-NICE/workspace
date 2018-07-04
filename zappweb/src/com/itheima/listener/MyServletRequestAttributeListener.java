@@ -25,4 +25,16 @@ public class MyServletRequestAttributeListener implements ServletRequestAttribut
 		
 	}
 
+	@Override
+	public void attributeAdded(ServletRequestAttributeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attributeRemoved(ServletRequestAttributeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

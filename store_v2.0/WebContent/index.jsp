@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="/UserServlet">
+	<jsp:forward page="/IndexServlet">
 		<jsp:param value="index" name="method"/>
 	</jsp:forward>
 </body>

@@ -13,6 +13,15 @@
 <!-- 引入自定义css文件 style.css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css" type="text/css"/>
 
+<script type="text/javascript">
+	$(function(){
+		$("#checkImg").click(function(){
+			$(this).attr("src","${pageContext.request.contextPath}/CheckImgServlet?time="+new Date().getTime());
+		})
+	})
+</script>
+
+
 <style>
   body{
    margin-top:20px;
@@ -68,10 +77,10 @@ font {
    <div class="form-group">
         <label for="inputPassword3" class="col-sm-2 control-label">验证码</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="inputPassword3" placeholder="请输入验证码">
+      <input type="text" class="form-control" name="code"  placeholder="请输入验证码">
     </div>
     <div class="col-sm-3">
-      <img src="${pageContext.request.contextPath }/image/captcha.jhtml"/>
+      <img id="checkImg" src="${pageContext.request.contextPath }/CheckImgServlet"/>
     </div>
     
   </div>

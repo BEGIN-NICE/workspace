@@ -10,6 +10,7 @@
 </head>
 <body>
 <h1>JSTL常用标签  fn</h1>
+
 ${ fn:contains("abccdes","c") }<br>
 ${ fn:endsWith("ddsfsfa","a") }<br>   <!-- 为什么返回false -->
 ${ fn:length("asdfasf") }<br>
