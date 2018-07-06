@@ -15,8 +15,8 @@ public class BaseServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// 字符集简单处理
-			resp.setContentType("text/hmtl;charset=utf-8");
-			req.setCharacterEncoding("utf-8");
+			resp.setContentType("text/html;charset=utf-8");
+			req.setCharacterEncoding("UTF-8");
 			String methodStr = req.getParameter("method");
 			if (methodStr == null || "".equals(methodStr)) {
 				resp.getWriter().println("The name of method is error!!!");

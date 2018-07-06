@@ -16,6 +16,7 @@ import com.itheima.store.dao.impl.UserDaoImpl;
 import com.itheima.store.domain.User;
 import com.itheima.store.service.UserService;
 import com.itheima.store.service.impl.UserServiceImpl;
+import com.itheima.store.utils.BeanFactory;
 import com.itheima.store.utils.MyDateConverter;
 import com.itheima.store.utils.UUIDUtil;
 
@@ -43,7 +44,7 @@ public class UserServlet extends BaseServlet {
 	public String checkUsername(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			String username = req.getParameter("username");
-			UserService userService = new UserServiceImpl();
+			UserService userService = (UserServiceImpl)BeanFactory.getBean("userServiceImpl");
 			User existUser = userService.findByUsername(username);
 			if (existUser == null) {
 				resp.getWriter().println("1");
@@ -65,21 +66,30 @@ public class UserServlet extends BaseServlet {
 	 */
 	public String save(HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			Map<String, String[]> map = req.getParameterMap();
-			User user = new User();
-			// 将字符串日期转为Date
-			ConvertUtils.register(new MyDateConverter(), Date.class);
-			BeanUtils.populate(user, map);
-			// Date date = (Date) new MyDateConverter().convert(Date.class,
-			// req.getParameter("birthday"));
-			// user.setBirthday(date);
-			user.setUid(UUIDUtil.getUUID());
-			user.setCode(UUIDUtil.getUUID() + UUIDUtil.getUUID());
-			user.setState(0);
-			UserService userService = new UserServiceImpl();
-			userService.save(user);
-			req.setAttribute("msg", "注册成功，请去邮箱激活！");
-			return "/store/registerSuccess.jsp";
+			//表单重复提交问题
+			String token = (String) req.getSession().getAttribute("token");
+			String token2 = req.getParameter("token");
+			req.getSession().removeAttribute("token");
+			if(token2.equals(token)) {			
+				Map<String, String[]> map = req.getParameterMap();
+				User user = new User();
+				// 将字符串日期转为Date
+				ConvertUtils.register(new MyDateConverter(), Date.class);
+				BeanUtils.populate(user, map);
+				System.out.println(user.getSex());
+				// Date date = (Date) new MyDateConverter().convert(Date.class,
+				// req.getParameter("birthday"));
+				// user.setBirthday(date);
+				user.setUid(UUIDUtil.getUUID());
+				user.setCode(UUIDUtil.getUUID() + UUIDUtil.getUUID());
+				user.setState(0);
+				UserService userService = (UserServiceImpl)BeanFactory.getBean("userServiceImpl");
+				userService.save(user);
+				req.setAttribute("msg", "注册成功，请去邮箱激活！");
+			}else {
+				req.setAttribute("msg", "请不要重复提交！");
+			}
+				return "/store/message.jsp";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,7 +107,7 @@ public class UserServlet extends BaseServlet {
 	public String active(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			String code = req.getParameter("code");
-			UserService userService = new UserServiceImpl();
+			UserService userService = (UserServiceImpl)BeanFactory.getBean("userServiceImpl");
 			User existUser = userService.findByCode(code);
 			if (existUser != null) {
 				existUser.setCode(null);
@@ -110,7 +120,7 @@ public class UserServlet extends BaseServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "/store/registerSuccess.jsp";
+		return "/store/message.jsp";
 	}
 
 	
@@ -135,7 +145,7 @@ public class UserServlet extends BaseServlet {
 			Map<String, String[]> map = req.getParameterMap();
 			User user = new User();
 			BeanUtils.populate(user, map);
-			UserService userService = new UserServiceImpl();
+			UserService userService = (UserServiceImpl)BeanFactory.getBean("userServiceImpl");
 			User existUser = userService.login(user);
 			if(existUser!=null) {
 				//自动登录

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.itheima.store.domain.Product;
 import com.itheima.store.service.ProductService;
 import com.itheima.store.service.impl.ProductServiceImpl;
+import com.itheima.store.utils.BeanFactory;
 
 /**
  * Servlet implementation class IndexServlet
@@ -20,7 +21,7 @@ public class IndexServlet extends BaseServlet {
 	 */
 	public String index(HttpServletRequest req, HttpServletResponse resp) {		
 		try {
-			ProductService productService = new ProductServiceImpl();
+			ProductService productService = (ProductServiceImpl) BeanFactory.getBean("productServiceImpl");
 			//查询热门商品
 			List<Product> listHot = productService.findByHot();
 			

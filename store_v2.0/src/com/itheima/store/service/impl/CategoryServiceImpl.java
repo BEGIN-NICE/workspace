@@ -7,6 +7,7 @@ import com.itheima.store.dao.CategoryDao;
 import com.itheima.store.dao.impl.CategoryDaoImpl;
 import com.itheima.store.domain.Category;
 import com.itheima.store.service.CategoryService;
+import com.itheima.store.utils.BeanFactory;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Element element = cache.get("list");
 		List<Category> list = null;
 		if(element == null) {
-			CategoryDao categoryDao = new CategoryDaoImpl();
+			CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
 			list = categoryDao.findAll();
 			element = new Element("list", list);
 			cache.put(element);

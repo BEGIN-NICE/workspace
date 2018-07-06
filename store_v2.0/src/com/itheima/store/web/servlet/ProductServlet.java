@@ -11,6 +11,7 @@ import com.itheima.store.domain.PageBean;
 import com.itheima.store.domain.Product;
 import com.itheima.store.service.ProductService;
 import com.itheima.store.service.impl.ProductServiceImpl;
+import com.itheima.store.utils.BeanFactory;
 import com.itheima.store.utils.CookieUtil;
 
 /**
@@ -29,7 +30,7 @@ public class ProductServlet extends BaseServlet {
 		try {
 			String cid = request.getParameter("cid");
 			Integer currPage = Integer.parseInt(request.getParameter("currPage"));
-			ProductService productService = new ProductServiceImpl();
+			ProductService productService = (ProductServiceImpl)BeanFactory.getBean("productServiceImpl");
 			PageBean pageBean = productService.findByCid(cid,currPage);
 			request.setAttribute("pageBean", pageBean);
 			return "/store/product_list.jsp";
@@ -49,7 +50,7 @@ public class ProductServlet extends BaseServlet {
 	public String findByPid(HttpServletRequest request,HttpServletResponse response) {
 		try {
 			String pid = request.getParameter("pid");		
-			ProductService productService = new ProductServiceImpl();
+			ProductService productService = (ProductServiceImpl)BeanFactory.getBean("productServiceImpl");
 			Product product = productService.findByPid(pid);
 			
 			//ÉÌÆ·ä¯ÀÀ¼ÇÂ¼ ,"history"

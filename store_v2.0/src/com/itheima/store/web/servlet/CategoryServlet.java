@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.itheima.store.domain.Category;
 import com.itheima.store.service.CategoryService;
 import com.itheima.store.service.impl.CategoryServiceImpl;
+import com.itheima.store.utils.BeanFactory;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -28,7 +29,7 @@ public class CategoryServlet extends BaseServlet {
 	public String findAll(HttpServletRequest request,HttpServletResponse response) {
 		
 		try {
-			CategoryService categoryService = new CategoryServiceImpl();
+			CategoryService categoryService = (CategoryServiceImpl) BeanFactory.getBean("categoryServiceImpl");
 			List<Category> list = categoryService.findAll();
 			JSONArray fromArray = JSONArray.fromObject(list);
 			String string = fromArray.toString();

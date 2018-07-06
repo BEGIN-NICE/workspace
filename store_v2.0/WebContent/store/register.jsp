@@ -1,3 +1,5 @@
+<%@page import="com.itheima.store.utils.UUIDUtil"%>
+<%@page import="java.util.UUID"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!doctype html>
@@ -71,11 +73,14 @@ font .title{
 	
 	
 
-
+<%
+	session.setAttribute("token", UUIDUtil.getUUID());
+%>
 	<div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
 		<font class="title">会员注册</font>USER REGISTER
 		<form class="form-horizontal" style="margin-top:5px;" action="${pageContext.request.contextPath }/UserServlet" method="post">
 			<input type="hidden" name="method" value="save">
+			<input type="hidden" name="token" value="${token }">
 			 <div class="form-group">
 			    <label for="username" class="col-sm-2 control-label">用户名</label>
 			    <div class="col-sm-6">
@@ -118,10 +123,10 @@ font .title{
 			  <label for="inlineRadio1" class="col-sm-2 control-label">性别</label>  
 			  <div class="col-sm-6">
 			    <label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" name="sex" value="男" checked> 男
+			  <input type="radio" id="sex" name="sex" value="男" checked> 男
 			</label>
 			<label class="radio-inline">
-			  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" name="sex"value="女"> 女
+			  <input type="radio" id="sex" name="sex" value="女"> 女
 			</label>
 			</div>
 			  </div>		

@@ -8,18 +8,19 @@ import com.itheima.store.dao.impl.ProductDaoImpl;
 import com.itheima.store.domain.PageBean;
 import com.itheima.store.domain.Product;
 import com.itheima.store.service.ProductService;
+import com.itheima.store.utils.BeanFactory;
 
 public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<Product> findByHot() throws SQLException{
-		ProductDao productDao = new ProductDaoImpl();
+		ProductDao productDao = (ProductDaoImpl)BeanFactory.getBean("productDaoImpl");
 		return productDao.findByHot();
 	}
 
 	@Override
 	public List<Product> findByNew() throws SQLException{
-		ProductDao productDao = new ProductDaoImpl();
+		ProductDao productDao = (ProductDaoImpl)BeanFactory.getBean("productDaoImpl");
 		return productDao.findByNew();
 	}
 
@@ -32,7 +33,7 @@ public class ProductServiceImpl implements ProductService{
 		int pageSize = 12;
 		pageBean.setPageSize(pageSize);
 		//每页商品数据
-		ProductDao productDao = new ProductDaoImpl();
+		ProductDao productDao = (ProductDaoImpl)BeanFactory.getBean("productDaoImpl");
 		List<Product> list = productDao.findByCid(cid,pageSize,currPage);
 		pageBean.setList(list);
 		//中数据条数
@@ -47,7 +48,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Product findByPid(String pid) throws SQLException {
-		ProductDao productDao = new ProductDaoImpl();
+		ProductDao productDao = (ProductDaoImpl)BeanFactory.getBean("productDaoImpl");
 		
 		return productDao.findByPid(pid);
 	}
