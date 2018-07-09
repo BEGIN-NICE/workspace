@@ -74,7 +74,7 @@
 					<div style="background-color:#d3d3d3;width:930px;padding:10px 10px;margin:10px 0 10px 0;">
 						<strong>商品介绍</strong><br>
 					</div>
-					<div>${prodcut.pdesc }</div>
+					<div>${product.pdesc}</div>
 					<div>
 						<img src="${pageContext.request.contextPath }/${product.pimage}">
 					</div>

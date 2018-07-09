@@ -1,5 +1,6 @@
 package com.itheima.store.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,6 +36,30 @@ public class OrdersServiceImpl implements OrdersService {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public int findCountByUid(String uid) throws SQLException {
+		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
+		return orderDao.findCountByUid(uid);
+	}
+
+	@Override
+	public List<Orders> findOrderByUid(String uid, int begin, int pageSize) throws Exception{
+		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
+		return orderDao.findOrderByUid(uid,begin,pageSize);
+	}
+
+	@Override
+	public Orders findByOid(String oid) throws Exception {
+		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
+		return orderDao.findByOid(oid);
+	}
+
+	@Override
+	public void update(Orders orders) throws Exception {
+		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
+		orderDao.update(orders);
 	}
 
 }

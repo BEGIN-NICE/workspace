@@ -56,7 +56,7 @@
 									<img src="${pageContext.request.contextPath }/${orderitem.product.pimage }" width="70" height="60">
 								</td>
 								<td width="30%">
-									<a target="_blank"> ${orderitem.product.pname }</a>
+									<a target="_blank" href="${pageContext.request.contextPath }/ProductServlet?method=findByPid&pid=${orderitem.product.pid}"> ${orderitem.product.pname }</a>
 								</td>
 								<td width="20%">
 									￥${orderitem.product.shop_price }
@@ -81,26 +81,30 @@
 
 			<div>
 				<hr/>
-				<form class="form-horizontal" style="margin-top:5px;margin-left:150px;">
+				<form id="orderForm" action="${pageContext.request.contextPath }/OrderServlet" method="post"  class="form-horizontal" style="margin-top:5px;margin-left:150px;">
+				<input type="hidden" name="method" value="payOrder">
+				<input type="hidden" name="p2_Order" value="${orders.oid }">
+				<input type="hidden" name="p3_Amt" value="0.01">
+				
 					<div class="form-group">
 						<label for="username" class="col-sm-1 control-label">地址</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" id="username" placeholder="请输入收货地址">
+							<input type="text" name="address" class="form-control" id="username" placeholder="请输入收货地址">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-1 control-label">收货人</label>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" id="inputPassword3" placeholder="请输收货人">
+							<input type="text" name="name" class="form-control"  placeholder="请输收货人">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="confirmpwd" class="col-sm-1 control-label">电话</label>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" id="confirmpwd" placeholder="请输入联系方式">
+							<input type="text" class="form-control" name="telephone" placeholder="请输入联系方式">
 						</div>
 					</div>
-				</form>
+			
 
 				<hr/>
 
@@ -140,7 +144,7 @@
 
 				</div>
 			</div>
-
+	</form>
 		</div>
 
 		<div style="margin-top:50px;">

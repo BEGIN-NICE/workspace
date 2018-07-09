@@ -9,4 +9,15 @@ public interface CategoryDao {
 
 	List<Category> findAll() throws SQLException;
 
+	void save(Category category)throws SQLException;
+
+	Category findByCid(String cid)throws SQLException;
+
+	void update(Category category)throws SQLException;
+
+	void deleteByCid(String cid) throws SQLException;
+
+	Category findByCname(String cname) throws SQLException;
+
+
 }

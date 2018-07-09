@@ -18,6 +18,15 @@
 			})
 			$(this).addClass("active");
 		})
+		
+		$("#search").blur(function(){
+			var $val = $(this).val();
+			if($val==""){
+				$("#searchsubmit").attr("disabled",true);
+			}else{
+				$("#searchsubmit").attr("disabled",false);
+			}
+		})
 	})
 </script>
 
@@ -38,7 +47,7 @@
 			<c:if test="${not empty user }">
 				<li>你好:${user.username }</li>
 				<li><a href="${pageContext.request.contextPath }/UserServlet?method=exit">退出</a></li>
-				<li><a href="#">我的订单</a></li>
+				<li><a href="${pageContext.request.contextPath }/OrderServlet?method=findByUid">我的订单</a></li>
 				<li><a href="${pageContext.request.contextPath }/store/cart.jsp">购物车</a></li>
 			</c:if>
 		</ol>
@@ -71,11 +80,11 @@
 							class="sr-only">(current)</span></a></li>
 					<li><a href="#">电脑办公</a></li> -->
 				</ul>
-				<form class="navbar-form navbar-right" role="search">
+				<form class="navbar-form navbar-right" role="search" action="${pageContext.request.contextPath }/SearchServlet?method=search" method="post">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" id="search" name="search" class="form-control" placeholder="Search">
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button disabled="disabled" id="searchsubmit" type="submit" class="btn btn-default">Submit</button>
 				</form>
 
 			</div>

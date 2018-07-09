@@ -5,10 +5,12 @@
 	<bean id="categoryServiceImpl" class="com.itheima.store.service.impl.CategoryServiceImpl" />
 	<bean id="ordersService" class="com.itheima.store.service.impl.OrdersServiceImpl" />
 	<bean id="orderItemService" class="com.itheima.store.service.impl.OrderItemServiceImpl" />
+	<bean id="searchService" class="com.itheima.store.service.impl.SearchServiceImpl" />
 	
 	<bean id="userDaoImpl" class="com.itheima.store.dao.impl.UserDaoImpl" />
 	<bean id="productDaoImpl" class="com.itheima.store.dao.impl.ProductDaoImpl" />
 	<bean id="categoryDaoImpl" class="com.itheima.store.dao.impl.CategoryDaoImpl" />
 	<bean id="ordersDao" class="com.itheima.store.dao.impl.OrdersDaoImpl" />
 	<bean id="orderItemDao" class="com.itheima.store.dao.impl.OrderItemDaoImpl" />
+	<bean id="searchDao" class="com.itheima.store.dao.impl.SearchDaoImpl" />
 </beans>

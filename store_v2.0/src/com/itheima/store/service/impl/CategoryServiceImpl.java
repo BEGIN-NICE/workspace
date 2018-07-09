@@ -30,12 +30,44 @@ public class CategoryServiceImpl implements CategoryService {
 		if(element == null) {
 			CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
 			list = categoryDao.findAll();
+			//将数据放入缓存
 			element = new Element("list", list);
 			cache.put(element);
 		}else {
 			list = (List<Category>) element.getObjectValue();
 		}
 		return list;
+	}
+
+	@Override
+	public void save(Category category) throws SQLException {
+		CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
+		categoryDao.save(category);
+	}
+
+	@Override
+	public Category findByCid(String cid) throws SQLException {
+		CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
+		
+		return categoryDao.findByCid(cid);
+	}
+
+	@Override
+	public void update(Category category) throws SQLException {
+		CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
+		categoryDao.update(category);
+	}
+
+	@Override
+	public void deleteByCid(String cid) throws SQLException {
+		CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
+		categoryDao.deleteByCid(cid);
+	}
+
+	@Override
+	public Category findByCname(String cname) throws SQLException {
+		CategoryDao categoryDao = (CategoryDaoImpl)BeanFactory.getBean("categoryDaoImpl");
+		return categoryDao.findByCname(cname);
 	}
 
 }

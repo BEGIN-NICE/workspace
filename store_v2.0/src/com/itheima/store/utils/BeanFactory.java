@@ -1,9 +1,7 @@
 package com.itheima.store.utils;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
@@ -24,7 +22,7 @@ public class BeanFactory {
 	@Test
 	public void test() {
 		try {
-			BeanFactory.getBean("userServlet");
+			BeanFactory.getBean("userDaoImpl");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

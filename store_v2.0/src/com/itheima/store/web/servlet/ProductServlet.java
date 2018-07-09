@@ -85,7 +85,7 @@ public class ProductServlet extends BaseServlet {
 				response.addCookie(cookie);
 			}
 			request.getSession().setAttribute("history", linkedList);
-			
+			System.out.println(product.getPdesc());
 			request.setAttribute("product", product);
 			return "/store/product_info.jsp";
 		}catch(Exception e) {

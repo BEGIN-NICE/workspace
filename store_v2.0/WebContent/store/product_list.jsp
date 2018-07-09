@@ -73,13 +73,21 @@ body {
 			<li <c:if test="${pageBean.currPage==1 }"> class='disabled' </c:if>><a href="${pageContext.request.contextPath }/ProductServlet?method=findByCid&currPage=${pageBean.currPage-1 }&cid=${param.cid }" aria-label="Previous"><span
 					aria-hidden="true">&laquo;</span></a></li>
 
-			<c:forEach var="i" begin="1"
-				end="${pageBean.totalPage < 7 ? pageBean.totalPage : 7 }">
+			<c:forEach var="i" begin="${pageBean.currPage < 2 ? 1 : pageBean.currPage }"
+				end="${pageBean.totalPage < 2 ? pageBean.totalPage : (pageBean.currPage < 2 ? 1 : pageBean.currPage)+1 }">
 				<li <c:if test="${pageBean.currPage==i }">class="active"</c:if>>
 					<a
 					href="${pageContext.request.contextPath }/ProductServlet?method=findByCid&currPage=${i }&cid=${param.cid }">${i }</a>
 				</li>
 			</c:forEach>
+			
+<%-- 			<c:forEach var="i" begin="1"
+				end="${pageBean.totalPage < 7 ? pageBean.totalPage : 7 }">
+				<li <c:if test="${pageBean.currPage==i }">class="active"</c:if>>
+					<a
+					href="${pageContext.request.contextPath }/ProductServlet?method=findByCid&currPage=${i }&cid=${param.cid }">${i }</a>
+				</li>
+			</c:forEach> --%>
 
 			<li <c:if test="${pageBean.currPage==pageBean.totalPage }"> class='disabled' </c:if> ><a href="${pageContext.request.contextPath }/ProductServlet?method=findByCid&currPage=${pageBean.currPage+1 }&cid=${param.cid }" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 			</a></li>
