@@ -90,12 +90,12 @@
 			</div>
 			<div style="text-align: center;">
 				<ul class="pagination">
-					<li <c:if test="${pageBean.currPage==1 }">class='disabled'</c:if>><a href="${pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=${pageBean.currPage-1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+					<li <c:if test="${pageBean.currPage==1 }">class='disabled'</c:if>><a <c:if test="${pageBean.currPage==1 }">href="#"</c:if> <c:if test="${pageBean.currPage!=1 }"> href="${pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=${pageBean.currPage-1}"</c:if> aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 					<c:forEach var="i" begin="1" end="${pageBean.totalPage }">
 					<li <c:if test="${pageBean.currPage == i }">class="active"</c:if>><a href="${pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=${i}">${i }</a></li>
 					</c:forEach>
 					<li <c:if test="${pageBean.currPage==pageBean.totalPage }">class="disabled"</c:if>>
-						<a href="${pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=${pageBean.currPage+1}" aria-label="Next">
+						<a <c:if test="${pageBean.currPage==pageBean.totalPage }">href="#"</c:if> <c:if test="${pageBean.currPage!=pageBean.totalPage 	 }"> href="${pageContext.request.contextPath }/OrderServlet?method=findByUid&currPage=${pageBean.currPage+1}"</c:if>  aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 						</a>
 					</li>

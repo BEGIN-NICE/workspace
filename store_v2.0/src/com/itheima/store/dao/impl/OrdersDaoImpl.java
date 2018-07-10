@@ -85,4 +85,31 @@ public class OrdersDaoImpl implements OrdersDao {
 		queryRunner.update(sql, params);
 	}
 
+	@Override
+	public int getCountOfOrders() throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select count(*) from orders";
+		Long l = (Long) queryRunner.query(sql, new ScalarHandler());
+		return l.intValue();
+	}
+
+	@Override
+	public List<Orders> findAllOrderByPage(int begin, int pageSize) throws Exception {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select * from orders order by ordertime desc limit ? ,?";
+		List<Orders> list = queryRunner.query(sql, new BeanListHandler<Orders>(Orders.class), begin,pageSize);
+		for (Orders order : list) {
+			sql = "select * from product p,orderitem o where p.pid = o.pid and o.oid = ?";
+			List<Map<String, Object>> itemList = queryRunner.query(sql, new MapListHandler(),order.getOid());
+			for (Map<String, Object> map : itemList) {
+				Product product = new Product();
+				BeanUtils.populate(product, map);
+				OrderItem orderItem = new OrderItem();
+				BeanUtils.populate(orderItem, map);
+				orderItem.setProduct(product);
+				order.getList().add(orderItem);
+			}
+		}
+		return list;
+	}
 }

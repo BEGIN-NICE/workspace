@@ -9,8 +9,10 @@ import org.apache.commons.dbutils.DbUtils;
 
 import com.itheima.store.dao.OrderItemDao;
 import com.itheima.store.dao.OrdersDao;
+import com.itheima.store.dao.ProductDao;
 import com.itheima.store.domain.OrderItem;
 import com.itheima.store.domain.Orders;
+import com.itheima.store.domain.PageBean;
 import com.itheima.store.service.OrdersService;
 import com.itheima.store.utils.BeanFactory;
 import com.itheima.store.utils.c3p0Util;
@@ -61,5 +63,40 @@ public class OrdersServiceImpl implements OrdersService {
 		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
 		orderDao.update(orders);
 	}
+
+//	@Override
+//	public PageBean findAllByPage(String currPageStr) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+	@Override
+	public PageBean findAllOrderByPage(String currPageStr) throws Exception {
+		PageBean<Orders> pageBean = new PageBean<Orders>();
+		
+		Integer currPage;
+		if(currPageStr==null) {
+			currPage=1;
+		}else {
+			currPage = Integer.parseInt(currPageStr);
+		}
+		pageBean.setCurrPage(currPage);
+		
+		int pageSize = 10;
+		pageBean.setPageSize(pageSize);
+		
+		int begin = (currPage-1)*pageSize;
+		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
+		int totalCount = orderDao.getCountOfOrders();
+		pageBean.setTotalCount(totalCount);
+		
+		List<Orders> list = orderDao.findAllOrderByPage(begin,pageSize);
+		pageBean.setList(list);
+		
+		Double totalPage = Math.ceil((double)totalCount/pageSize);
+		pageBean.setTotalPage(totalPage.intValue());
+		return pageBean;
+	}
+
 
 }

@@ -9,6 +9,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.itheima.store.dao.ProductDao;
+import com.itheima.store.domain.Orders;
 import com.itheima.store.domain.Product;
 import com.itheima.store.utils.c3p0Util;
 
@@ -54,5 +55,67 @@ public class ProductDaoImpl implements ProductDao {
 		Product query = queryRunner.query(sql, new BeanHandler<Product>(Product.class),pid);
 		return query;
 	}
+
+	/**
+	 * ºóÌ¨´úÂë
+	 */
+	@Override
+	public int getCount() throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select count(*) from product where pflag=?";
+		Long l = (Long) queryRunner.query(sql, new ScalarHandler(),0);
+		return l.intValue();
+	}
+
+	@Override
+	public List<Product> findAllByPage(int begin, int pageSize) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select * from product where pflag=? order by pdate desc limit ?,?";
+		List<Product> list = queryRunner.query(sql, new BeanListHandler<Product>(Product.class), 0,begin,pageSize);
+		return list;
+	}
+
+	@Override
+	public void save(Product product) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "insert into product values (?,?,?,?,?,?,?,?,?,?)";
+		Object[] params = {product.getPid(),product.getPname(),product.getMarket_price(),product.getShop_price(),product.getPimage(),product.getPdate(),product.getIs_hot(),product.getPdesc(),product.getPflag(),product.getCategory().getCid()};
+		queryRunner.update(sql, params);
+	}
+
+	@Override
+	public void pushDown(String pid) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "update product set pflag=? where pid=?";
+		queryRunner.update(sql, 1,pid);
+		
+	}
+
+	@Override
+	public List<Product> findAllByPushDown(int begin, int pageSize) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select * from product where pflag=? order by pdate desc limit ?,?";
+		List<Product> list = queryRunner.query(sql, new BeanListHandler<Product>(Product.class), 1,begin,pageSize);
+		return list;
+	}
+
+	@Override
+	public void update(Product p) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "update product set pname=?,market_price=?,shop_price=?,pimage=?,pdate=?,is_hot=?,pdesc=?,pflag=? where pid=?";
+		Object[] params = {p.getPname(),p.getMarket_price(),p.getShop_price(),p.getPimage(),p.getPdate(),p.getIs_hot(),p.getPdesc(),p.getPflag(),p.getPid()};
+		queryRunner.update(sql,params);
+		
+	}
+
+	@Override
+	public int getCountPushDown() throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select count(*) from product where pflag=?";
+		Long l = (Long) queryRunner.query(sql, new ScalarHandler(),1);
+		return l.intValue();
+	}
+
+
 
 }

@@ -19,4 +19,8 @@ public interface OrdersDao {
 
 	void update(Orders orders)throws Exception;
 
+	int getCountOfOrders() throws Exception;
+
+	List<Orders> findAllOrderByPage(int begin, int pageSize) throws Exception;
+
 }

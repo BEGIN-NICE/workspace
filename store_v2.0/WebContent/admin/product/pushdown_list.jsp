@@ -7,7 +7,9 @@
 		<link href="${pageContext.request.contextPath}/css/Style1.css" rel="stylesheet" type="text/css" />
 		<script language="javascript" src="${pageContext.request.contextPath}/js/public.js"></script>
 		<script type="text/javascript">
-			
+			function addProduct(){
+				window.location.href = "${pageContext.request.contextPath}/AdminProductServlet?method=saveUI";
+			}
 		</script>
 	</HEAD>
 	<body>
@@ -17,10 +19,17 @@
 				<TBODY>
 					<tr>
 						<td class="ta_01" align="center" bgColor="#afd1f3">
-							<strong>订单列表</strong>
+							<strong>商品列表</strong>
 						</TD>
 					</tr>
-					
+					<tr>
+						<td class="ta_01" align="right">
+							<button type="button" id="add" name="add" value="添加" class="button_add" onclick="addProduct()">
+&#28155;&#21152;
+</button>
+
+						</td>
+					</tr>
 					<tr>
 						<td class="ta_01" align="center" bgColor="#f5fafe">
 							<table cellspacing="0" cellpadding="1" rules="all"
@@ -29,26 +38,29 @@
 								<tr
 									style="FONT-WEIGHT: bold; FONT-SIZE: 12pt; HEIGHT: 25px; BACKGROUND-COLOR: #afd1f3">
 
-									<td align="center" width="10%">
+									<td align="center" width="18%">
 										序号
 									</td>
-									<td align="center" width="10%">
-										订单编号
+									<td align="center" width="17%">
+										商品图片
 									</td>
-									<td align="center" width="10%">
-										订单金额
+									<td align="center" width="17%">
+										商品名称
 									</td>
-									<td align="center" width="10%">
-										收货人
+									<td align="center" width="17%">
+										商品价格
 									</td>
-									<td align="center" width="10%">
-										订单状态
+									<td align="center" width="17%">
+										是否热门
 									</td>
-									<td align="center" width="50%">
-										订单详情
+									<td width="7%" align="center">
+										编辑
+									</td>
+									<td width="7%" align="center">
+										上架
 									</td>
 								</tr>
-									<c:forEach var="o" items="${pageBean.list }" varStatus="status">
+									<c:forEach var="p" items="${pageBean.list }" varStatus="status">
 										<tr onmouseover="this.style.backgroundColor = 'white'"
 											onmouseout="this.style.backgroundColor = '#F5FAFE';">
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
@@ -57,41 +69,38 @@
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 												width="17%">
-												${o.oid }
+												<img width="40" height="45" src="${ pageContext.request.contextPath }/${p.pimage}">
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 												width="17%">
-												${o.total }
+												${p.pname }
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 												width="17%">
-												${o.name }
+												${p.shop_price }
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
 												width="17%">
-												<c:if test="${o.state==1 }">
-													未付款
+												<c:if test="${p.is_hot==1 }">
+													是
 												</c:if>
-												<c:if test="${o.state==2 }">
-													<a href="${ pageContext.request.contextPath }/AdminOrderServlet?oid=${o.oid}"><font color="blue">发货</font></a>
+												<c:if test="${p.is_hot==0 }">
+													否
 												</c:if>
-												<c:if test="${o.state==3 }">
-													等待确认收货
-												</c:if>
-												<c:if test="${o.state==4 }">
-													订单完成
-												</c:if>
-											
 											</td>
 											<td align="center" style="HEIGHT: 22px">
-												<input type="button" value="订单详情" id="but${o.oid }" onclick="showDetail('${o.oid}')"/>
-												<div id="div${o.oid }">
-													
-												</div>
+												<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=editUI&pid=${p.pid}">
+													<img src="${pageContext.request.contextPath}/images/i_edit.gif" border="0" style="CURSOR: hand">
+												</a>
 											</td>
-							
+									
+											<td align="center" style="HEIGHT: 22px">
+												<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=pushUp&pid=${p.pid}">
+													<img src="${pageContext.request.contextPath}/images/i_del.gif" width="16" height="16" border="0" style="CURSOR: hand">
+												</a>
+											</td>
 										</tr>
-								</c:forEach>	
+									</c:forEach>	
 							</table>
 						</td>
 					</tr>
@@ -99,20 +108,20 @@
 						<td colspan="7">
 							第${pageBean.currPage }/${pageBean.totalPage }页 
 							<c:if test="${pageBean.currPage != 1 }">
-								<a href="${ pageContext.request.contextPath }/AdminOrderServlet?method=findAllByPage&currPage=1">首页</a>|
-								<a href="${ pageContext.request.contextPath }/AdminOrderServlet?method=findAllByPage&currPage=${pageBean.currPage-1}">上一页</a>|
+								<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=findAllByPushDown&currPage=1">首页</a>|
+								<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=findAllByPushDown&currPage=${pageBean.currPage-1}">上一页</a>|
 							</c:if>
 							
 							<c:forEach var="i" begin="1" end="${pageBean.totalPage }">
 								<c:if test="${pageBean.currPage==i }">${i }</c:if>
 								<c:if test="${pageBean.currPage != i }">
-								<a href="${ pageContext.request.contextPath }/AdminOrderServlet?method=findAllByPage&currPage=${i}">[${i }]</a>
+								<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=findAllByPushDown&currPage=${i}">[${i }]</a>
 								</c:if>
 							</c:forEach>
 							
 							<c:if test="${pageBean.currPage != pageBean.totalPage }">
-								<a href="${ pageContext.request.contextPath }/AdminOrderServlet?method=findAllByPage&currPage=${pageBean.currPage+1}">下一页</a>|
-								<a href="${ pageContext.request.contextPath }/AdminOrderServlet?method=findAllByPage&currPage=${pageBean.totalPage}">尾页</a>|
+								<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=findAllByPushDown&currPage=${pageBean.currPage+1}">下一页</a>|
+								<a href="${ pageContext.request.contextPath }/AdminProductServlet?method=findAllByPushDown&currPage=${pageBean.totalPage}">尾页</a>|
 							</c:if>
 						</td>
 					</tr>

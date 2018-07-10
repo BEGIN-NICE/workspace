@@ -29,9 +29,14 @@
 		d.add('0102','01','分类管理','','','mainFrame');
 		d.add('010201','0102','分类管理','${pageContext.request.contextPath}/AdminCategoryServlet?method=findAll','','mainFrame');
 		d.add('0104','01','商品管理');
-		d.add('010401','0104','商品管理','','','mainFrame');
+		d.add('010401','0104','商品管理','${pageContext.request.contextPath}/AdminProductServlet?method=findAllByPage&currPage=1','','mainFrame');
+		d.add('010402','0104','下架商品管理','${pageContext.request.contextPath}/AdminProductServlet?method=findAllByPushDown&currPage=1','','mainFrame');
 		d.add('0105','01','订单管理');
-		d.add('010501','0105','订单管理','#','','mainFrame');
+		d.add('010501','0105','订单管理','${pageContext.request.contextPath}/AdminOrderServlet?method=findAllByPage&currPage=1','','mainFrame');
+		d.add('010502','0105','未付款订单管理','${pageContext.request.contextPath}/AdminOrderServlet?method=findAllByNoPay&state=1&currPage=1','','mainFrame');
+		d.add('010503','0105','已付款订单管理','${pageContext.request.contextPath}/AdminOrderServlet?method=findAllByPayed&state=2&currPage=1','','mainFrame');
+		d.add('010504','0105','已发货订单管理','${pageContext.request.contextPath}/AdminOrderServlet?method=findAllByGoing&state=3&currPage=1','','mainFrame');
+		d.add('010505','0105','已完成订单管理','${pageContext.request.contextPath}/AdminOrderServlet?method=findAllByOver&state=4&currPage=1','','mainFrame');
 		document.write(d);
 		
 	</script>

@@ -16,4 +16,18 @@ public interface ProductService {
 
 	Product findByPid(String pid) throws SQLException;
 
+	int getCount()throws SQLException;
+
+	PageBean findAllByPage(String currPageStr) throws SQLException;
+
+	void save(Product product)throws SQLException;
+
+	void pushDown(String pid) throws SQLException;
+
+	PageBean findAllByPushDown(String currPageStr) throws SQLException;
+
+	void update(Product product)throws SQLException;
+
+
+
 }

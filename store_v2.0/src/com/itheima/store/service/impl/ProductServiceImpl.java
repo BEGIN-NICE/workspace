@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.itheima.store.dao.ProductDao;
 import com.itheima.store.dao.impl.ProductDaoImpl;
+import com.itheima.store.domain.Orders;
 import com.itheima.store.domain.PageBean;
 import com.itheima.store.domain.Product;
 import com.itheima.store.service.ProductService;
@@ -52,5 +53,89 @@ public class ProductServiceImpl implements ProductService{
 		
 		return productDao.findByPid(pid);
 	}
+
+	@Override
+	public int getCount() throws SQLException {
+		ProductDao productDao = (ProductDaoImpl)BeanFactory.getBean("productDaoImpl");
+		
+		return productDao.getCount();
+	}
+
+	@Override
+	public PageBean findAllByPage(String currPageStr) throws SQLException {
+
+		PageBean<Product> pageBean = new PageBean<Product>();
+		
+		Integer currPage;
+		if(currPageStr==null) {
+			currPage=1;
+		}else {
+			currPage = Integer.parseInt(currPageStr);
+		}
+		pageBean.setCurrPage(currPage);
+		
+		int pageSize = 10;
+		pageBean.setPageSize(pageSize);
+		
+		int begin = (currPage-1)*pageSize;
+		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+		int totalCount = productDao.getCount();
+		pageBean.setTotalCount(totalCount);
+		
+		List<Product> list = productDao.findAllByPage(begin,pageSize);
+		pageBean.setList(list);
+		
+		Double totalPage = Math.ceil((double)totalCount/pageSize);
+		pageBean.setTotalPage(totalPage.intValue());
+		return pageBean;
+	}
+
+	@Override
+	public void save(Product product) throws SQLException {
+		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+		productDao.save(product);
+	}
+
+	@Override
+	public void pushDown(String pid) throws SQLException {
+		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+		productDao.pushDown(pid);
+	}
+
+	@Override
+	public PageBean findAllByPushDown(String currPageStr) throws SQLException {
+PageBean<Product> pageBean = new PageBean<Product>();
+		
+		Integer currPage;
+		if(currPageStr==null) {
+			currPage=1;
+		}else {
+			currPage = Integer.parseInt(currPageStr);
+		}
+		pageBean.setCurrPage(currPage);
+		
+		int pageSize = 10;
+		pageBean.setPageSize(pageSize);
+		
+		int begin = (currPage-1)*pageSize;
+		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+		int totalCount = productDao.getCountPushDown();
+		pageBean.setTotalCount(totalCount);
+		
+		List<Product> list = productDao.findAllByPushDown(begin,pageSize);
+		pageBean.setList(list);
+		
+		Double totalPage = Math.ceil((double)totalCount/pageSize);
+		pageBean.setTotalPage(totalPage.intValue());
+		return pageBean;
+	}
+
+	@Override
+	public void update(Product product) throws SQLException {
+		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+		productDao.update(product);
+	}
+
+	
 
 }
