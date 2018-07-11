@@ -4,10 +4,21 @@
 	<HEAD>
 		<meta http-equiv="Content-Language" content="zh-cn">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link href="${pageContext.request.contextPath}/css/Style1.css" rel="stylesheet" type="text/css" />
+		<link href="${pageContext.request.contextPath}/css/Style1.css" rel="stylesheet" type="text/css" />	
+		<script src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+		
 		<script language="javascript" src="${pageContext.request.contextPath}/js/public.js"></script>
 		<script type="text/javascript">
-			
+			function showDetail(id){
+				var $div = $("#div"+id).html();
+				if($div ==""){
+					$.post("${ pageContext.request.contextPath }/AdminOrderServlet",{"method":"detail","oid":id},function(data){
+						$("#div"+id).html(data);
+					})
+				}else{
+					$("#div"+id).html("");
+				}
+			}
 		</script>
 	</HEAD>
 	<body>
@@ -73,7 +84,7 @@
 													未付款
 												</c:if>
 												<c:if test="${o.state==2 }">
-													<a href="${ pageContext.request.contextPath }/AdminOrderServlet?oid=${o.oid}"><font color="blue">发货</font></a>
+													<a href="${ pageContext.request.contextPath }/AdminOrderServlet?method=updateState&oid=${o.oid}"><font color="blue">发货</font></a>
 												</c:if>
 												<c:if test="${o.state==3 }">
 													等待确认收货
@@ -85,11 +96,12 @@
 											</td>
 											<td align="center" style="HEIGHT: 22px">
 												<input type="button" value="订单详情" id="but${o.oid }" onclick="showDetail('${o.oid}')"/>
-												<div id="div${o.oid }">
-													
-												</div>
 											</td>
-							
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div id="div${o.oid }"></div>
+											</td>
 										</tr>
 								</c:forEach>	
 							</table>

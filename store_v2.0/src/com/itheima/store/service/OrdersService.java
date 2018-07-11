@@ -20,7 +20,7 @@ public interface OrdersService {
 
 //	PageBean findAllByPage(String currPageStr);
 
-	PageBean findAllOrderByPage(String currPageStr) throws Exception;
+	PageBean findAllOrderByPage(String currPageStr,String state) throws Exception;
 
 
 }

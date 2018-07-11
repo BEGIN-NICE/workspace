@@ -112,4 +112,20 @@ public class OrdersDaoImpl implements OrdersDao {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Orders> findAllOrderByPage(int begin, int pageSize, int parseInt) throws Exception {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select * from orders where state=? order by ordertime desc limit ? ,?";
+		List<Orders> list = queryRunner.query(sql, new BeanListHandler<Orders>(Orders.class),parseInt,begin,pageSize);	
+		return list;
+	}
+
+	@Override
+	public int getCountOfOrders(int parseInt) throws Exception {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select count(*) from orders where state=?";
+		Long l = (Long) queryRunner.query(sql, new ScalarHandler(),parseInt);
+		return l.intValue();
+	}
 }

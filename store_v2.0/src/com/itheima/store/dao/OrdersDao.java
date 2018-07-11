@@ -23,4 +23,8 @@ public interface OrdersDao {
 
 	List<Orders> findAllOrderByPage(int begin, int pageSize) throws Exception;
 
+	List<Orders> findAllOrderByPage(int begin, int pageSize, int parseInt) throws Exception;
+
+	int getCountOfOrders(int parseInt)throws Exception;
+
 }

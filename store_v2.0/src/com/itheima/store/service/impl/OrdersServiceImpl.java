@@ -71,7 +71,7 @@ public class OrdersServiceImpl implements OrdersService {
 //	}
 
 	@Override
-	public PageBean findAllOrderByPage(String currPageStr) throws Exception {
+	public PageBean findAllOrderByPage(String currPageStr,String state) throws Exception {
 		PageBean<Orders> pageBean = new PageBean<Orders>();
 		
 		Integer currPage;
@@ -87,12 +87,20 @@ public class OrdersServiceImpl implements OrdersService {
 		
 		int begin = (currPage-1)*pageSize;
 		OrdersDao orderDao=(OrdersDao) BeanFactory.getBean("ordersDao");
-		int totalCount = orderDao.getCountOfOrders();
-		pageBean.setTotalCount(totalCount);
-		
-		List<Orders> list = orderDao.findAllOrderByPage(begin,pageSize);
-		pageBean.setList(list);
-		
+		List<Orders> list;
+		int totalCount;
+		if(state==null) {
+			list = orderDao.findAllOrderByPage(begin,pageSize);
+			totalCount = orderDao.getCountOfOrders();
+			pageBean.setTotalCount(totalCount);
+			pageBean.setList(list);
+		}else {
+			
+			list = orderDao.findAllOrderByPage(begin,pageSize,Integer.parseInt(state));
+			totalCount = orderDao.getCountOfOrders(Integer.parseInt(state));
+			pageBean.setTotalCount(totalCount);
+			pageBean.setList(list);
+		}
 		Double totalPage = Math.ceil((double)totalCount/pageSize);
 		pageBean.setTotalPage(totalPage.intValue());
 		return pageBean;
