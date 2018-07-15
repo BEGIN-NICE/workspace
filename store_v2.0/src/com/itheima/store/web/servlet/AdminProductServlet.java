@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.itheima.store.domain.Category;
+import com.itheima.store.domain.Image;
 import com.itheima.store.domain.PageBean;
 import com.itheima.store.domain.Product;
 import com.itheima.store.service.CategoryService;
@@ -67,6 +68,9 @@ public class AdminProductServlet extends BaseServlet {
 			CategoryService categoryService = (CategoryService) BeanFactory.getBean("categoryServiceImpl");
 			List<Category> list = categoryService.findAll();
 			request.setAttribute("list", list);
+			
+			Image image = productService.findImageByPid(pid);
+			request.setAttribute("image", image);
 			return "/admin/product/edit.jsp";
 			
 		}catch(Exception e) {

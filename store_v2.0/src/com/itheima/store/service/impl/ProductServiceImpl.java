@@ -1,15 +1,20 @@
 package com.itheima.store.service.impl;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.dbutils.DbUtils;
+
 import com.itheima.store.dao.ProductDao;
 import com.itheima.store.dao.impl.ProductDaoImpl;
+import com.itheima.store.domain.Image;
 import com.itheima.store.domain.Orders;
 import com.itheima.store.domain.PageBean;
 import com.itheima.store.domain.Product;
 import com.itheima.store.service.ProductService;
 import com.itheima.store.utils.BeanFactory;
+import com.itheima.store.utils.c3p0Util;
 
 public class ProductServiceImpl implements ProductService{
 
@@ -90,10 +95,16 @@ public class ProductServiceImpl implements ProductService{
 		return pageBean;
 	}
 
+//	@Override
+//	public void save(Product product) throws SQLException {
+//		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+//		productDao.save(product);
+//	}
+//ÐÞ¸Äºó	
 	@Override
-	public void save(Product product) throws SQLException {
+	public void save(Image image) throws SQLException {
 		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
-		productDao.save(product);
+		productDao.save(image);
 	}
 
 	@Override
@@ -134,6 +145,29 @@ PageBean<Product> pageBean = new PageBean<Product>();
 	public void update(Product product) throws SQLException {
 		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
 		productDao.update(product);
+	}
+
+	@Override
+	public Image findImageByPid(String pid) throws SQLException {
+		ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+		return productDao.findImageByPid(pid);
+	}
+
+	@Override
+	public void update(Image image) {
+		Connection conn=null;
+		try {
+			conn = c3p0Util.getConnection();
+			conn.setAutoCommit(true);
+			ProductDao productDao = (ProductDao) BeanFactory.getBean("productDaoImpl");
+			productDao.update(image,conn);
+			DbUtils.commitAndCloseQuietly(conn);
+		}catch(Exception e) {
+			if(conn!=null) {
+				DbUtils.rollbackAndCloseQuietly(conn);
+			}
+			e.printStackTrace();
+		}
 	}
 
 	

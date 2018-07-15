@@ -27,6 +27,13 @@
 	href="${pageContext.request.contextPath }/css/style.css"
 	type="text/css" />
 
+<script type="text/javascript">
+	function fileDownLoad(pid){
+		window.local.href="${pageContext.request.contextPath}/ProductServlet?method=fileDownLoad&pid="+pid;
+	}
+
+</script>
+
 <style>
 body {
 	margin-top: 20px;
@@ -54,7 +61,8 @@ body {
 		</div>
 		<c:forEach var="p" items="${pageBean.list }">
 			<div class="col-md-2">
-				<a href="${pageContext.request.contextPath }/ProductServlet?method=findByPid&pid=${p.pid}"> <img src="${p.pimage }" width="170"
+				<a ondblclick="fileDownLoad('${p.pid}')" 
+				href="${pageContext.request.contextPath }/ProductServlet?method=findByPid&pid=${p.pid}"> <img src="${p.pimage }" width="170"
 					height="170" style="display: inline-block;">
 				</a>
 				<p>
@@ -76,7 +84,7 @@ body {
 			<c:forEach var="i" begin="${pageBean.currPage < 2 ? 1 : pageBean.currPage }"
 				end="${pageBean.totalPage < 2 ? pageBean.totalPage : (pageBean.currPage < 2 ? 1 : pageBean.currPage)+1 }">
 				<li <c:if test="${pageBean.currPage==i }">class="active"</c:if>>
-					<a
+					<a 
 					href="${pageContext.request.contextPath }/ProductServlet?method=findByCid&currPage=${i }&cid=${param.cid }">${i }</a>
 				</li>
 			</c:forEach>

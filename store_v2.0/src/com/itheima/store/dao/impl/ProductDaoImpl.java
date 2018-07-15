@@ -1,5 +1,6 @@
 package com.itheima.store.dao.impl;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.itheima.store.dao.ProductDao;
+import com.itheima.store.domain.Image;
 import com.itheima.store.domain.Orders;
 import com.itheima.store.domain.Product;
 import com.itheima.store.utils.c3p0Util;
@@ -75,12 +77,23 @@ public class ProductDaoImpl implements ProductDao {
 		return list;
 	}
 
+//	@Override
+//	public void save(Product product) throws SQLException {
+//		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+//		String sql = "insert into product values (?,?,?,?,?,?,?,?,?,?)";
+//		Object[] params = {product.getPid(),product.getPname(),product.getMarket_price(),product.getShop_price(),product.getPimage(),product.getPdate(),product.getIs_hot(),product.getPdesc(),product.getPflag(),product.getCategory().getCid()};
+//		queryRunner.update(sql, params);
+//	}
+	//ÐÞ¸Ä
 	@Override
-	public void save(Product product) throws SQLException {
+	public void save(Image image) throws SQLException {
 		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
 		String sql = "insert into product values (?,?,?,?,?,?,?,?,?,?)";
-		Object[] params = {product.getPid(),product.getPname(),product.getMarket_price(),product.getShop_price(),product.getPimage(),product.getPdate(),product.getIs_hot(),product.getPdesc(),product.getPflag(),product.getCategory().getCid()};
+		Object[] params = {image.getProduct().getPid(),image.getProduct().getPname(),image.getProduct().getMarket_price(),image.getProduct().getShop_price(),image.getProduct().getPimage(),image.getProduct().getPdate(),image.getProduct().getIs_hot(),image.getProduct().getPdesc(),image.getProduct().getPflag(),image.getProduct().getCategory().getCid()};
 		queryRunner.update(sql, params);
+		sql = "insert into image values (?,?,?)";
+		Object[] param = {image.getId(),image.getFilename(),image.getProduct().getPid()};
+		queryRunner.update(sql, param);
 	}
 
 	@Override
@@ -114,6 +127,25 @@ public class ProductDaoImpl implements ProductDao {
 		String sql = "select count(*) from product where pflag=?";
 		Long l = (Long) queryRunner.query(sql, new ScalarHandler(),1);
 		return l.intValue();
+	}
+
+	@Override
+	public Image findImageByPid(String pid) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner(c3p0Util.getDataSource());
+		String sql = "select * from image where pid=?";
+		Image image = queryRunner.query(sql, new BeanHandler<Image>(Image.class), pid);
+		return image;
+	}
+
+	@Override
+	public void update(Image image ,Connection conn) throws SQLException {
+		QueryRunner queryRunner = new QueryRunner();
+		String sql = "update product set pname=?,market_price=?,shop_price=?,pimage=?,pdate=?,is_hot=?,pdesc=?,pflag=?,cid=? where pid=?";
+		Object[] params = {image.getProduct().getPname(),image.getProduct().getMarket_price(),image.getProduct().getShop_price(),image.getProduct().getPimage(),image.getProduct().getPdate(),image.getProduct().getIs_hot(),image.getProduct().getPdesc(),image.getProduct().getPflag(),image.getProduct().getCategory().getCid(),image.getProduct().getPid()};
+		queryRunner.update(conn,sql, params);
+		sql = "update image set filename=? where id=?";
+		Object[] param = {image.getFilename(),image.getId()};
+		queryRunner.update(conn,sql, param);
 	}
 
 

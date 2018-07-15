@@ -9,10 +9,9 @@
 	
 	<body>
 		<!--  -->
-		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="method" value="update">
+		<form id="userAction_save_do" name="Form1" action="${pageContext.request.contextPath}/UpdateProductServlet" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="pid" value="${p.pid }">
-			<input type="hidden" name="image" value="">
+			<input type="hidden" name="id" value="${image.id }">
 			
 			&nbsp;
 			<table cellSpacing="1" cellPadding="5" width="100%" align="center" bgColor="#eeeeee" style="border: 1px solid #8ba7e3" border="0">
@@ -62,6 +61,7 @@
 					</td>
 					<td class="ta_01" bgColor="#ffffff" colspan="3">
 						<input type="file" name="upload" />
+						<div><img style="width: 100px;height: 100px" src="${pageContext.request.contextPath }/${p.pimage}"></div>
 					</td>
 				</tr>
 				<tr>

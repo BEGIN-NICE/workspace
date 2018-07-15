@@ -1,8 +1,10 @@
 package com.itheima.store.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.itheima.store.domain.Image;
 import com.itheima.store.domain.Orders;
 import com.itheima.store.domain.Product;
 
@@ -22,7 +24,9 @@ public interface ProductDao {
 
 	List<Product> findAllByPage(int begin, int pageSize) throws SQLException;
 
-	void save(Product product) throws SQLException;
+//	void save(Product product) throws SQLException;
+	//ÐÞ¸Äºó
+	void save(Image image) throws SQLException;
 
 	void pushDown(String pid) throws SQLException;
 
@@ -31,6 +35,10 @@ public interface ProductDao {
 	void update(Product product) throws SQLException;
 
 	int getCountPushDown() throws SQLException;
+
+	Image findImageByPid(String pid) throws SQLException;
+
+	void update(Image image,Connection conn) throws SQLException;
 
 
 

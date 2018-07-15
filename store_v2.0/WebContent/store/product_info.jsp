@@ -13,6 +13,13 @@
 		<!-- 引入自定义css文件 style.css -->
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css" type="text/css" />
 
+<script type="text/javascript">
+	function fileDownLoad(pid){
+		window.location.href="${pageContext.request.contextPath}/ProductServlet?method=fileDownLoad&pid="+pid;
+	}
+
+</script>
+
 		<style>
 			body {
 				margin-top: 20px;
@@ -39,7 +46,7 @@
 
 				<div style="margin:0 auto;width:950px;">
 					<div class="col-md-6">
-						<img style="opacity: 1;width:400px;height:350px;" title="" class="medium" src="${pageContext.request.contextPath }/${product.pimage}">
+						<img ondblclick="fileDownLoad('${product.pid}')" style="opacity: 1;width:400px;height:350px;" title="" class="medium" src="${pageContext.request.contextPath }/${product.pimage}">
 					</div>
 				<form id="cartForm" action="${pageContext.request.contextPath }/CartServlet" method="post">
 					<input type="hidden" name="method" value="addCart">

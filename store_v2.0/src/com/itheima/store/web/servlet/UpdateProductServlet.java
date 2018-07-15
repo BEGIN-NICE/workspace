@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.fileupload.FileItem;
@@ -33,7 +34,7 @@ import com.itheima.store.utils.UUIDUtil;
 /**
  * Servlet implementation class AddProductServlet
  */
-public class AddProductServlet extends HttpServlet {
+public class UpdateProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -64,56 +65,51 @@ public class AddProductServlet extends HttpServlet {
 				if(fileItem.isFormField()) {
 					String name = fileItem.getFieldName();
 					String value = fileItem.getString("UTF-8");//解决普通项中文乱码
-					System.out.println(name+"====="+value);
 					map.put(name, value);
-				}else{
-					fileName = fileItem.getName();
-					int lastIndexOf = fileName.lastIndexOf(".");
-					newFileName = UUIDUtil.getUUID()+fileName.substring(lastIndexOf);
-					System.out.println(newFileName);
-					
-					String path = PathUtil.getPath(newFileName);
-					DBPath = "upload"+path;
-					
-					String realPath = this.getServletContext().getRealPath("/upload"+path);
-					File file = new File(realPath);
-					if(!file.exists()) {
-						file.mkdirs();
-					}
-					
-					InputStream inputStream = fileItem.getInputStream();
-					OutputStream outputStream = new FileOutputStream(realPath+"/"+newFileName);
-					int len;
-					byte[] buf = new byte[1024];
-					while((len=inputStream.read(buf))!=-1) {
-						outputStream.write(buf, 0, len);
-					}
-					outputStream.close();
-					inputStream.close();
 				}
 			}
+			
 			Category category = new Category();
 			category.setCid(map.get("cid"));
-			Product product = new Product();
-			BeanUtils.populate(product, map);
-			product.setPdate(new Date());
-			product.setPid(UUIDUtil.getUUID());
-			product.setPimage(DBPath+"/"+newFileName);
-			product.setPflag(0);
+			ProductService productService = (ProductServiceImpl)BeanFactory.getBean("productServiceImpl");
+			Product product = productService.findByPid(map.get("pid"));
+			product.setPname(map.get("pname"));
+			product.setIs_hot(Integer.parseInt(map.get("is_hot")));
+			product.setMarket_price(Double.parseDouble(map.get("market_price")));
+			product.setShop_price(Double.parseDouble(map.get("shop_price")));
+			product.setPdesc(map.get("pdesc"));
 			product.setCategory(category);
 			
-			Image image = new Image();
-			image.setId(UUIDUtil.getUUID());
-			image.setFilename(fileName);
+			Image image = productService.findImageByPid(product.getPid());
 			image.setProduct(product);
 			
-			ProductService productService = (ProductServiceImpl)BeanFactory.getBean("productServiceImpl");
-			productService.save(image);
+			for (FileItem fileItem : parseRequest) {
+				if(!fileItem.isFormField()) {
+					fileName = fileItem.getName();
+					//新选择了图片
+					if(fileName!=null) {	
+						image.setFilename(fileName);
+					
+						InputStream inputStream = fileItem.getInputStream();
+						String realPath = this.getServletContext().getRealPath(image.getProduct().getPimage());
+						OutputStream outputStream = new FileOutputStream(realPath);
+						int len;
+						byte[] buf = new byte[1024];
+						while((len=inputStream.read(buf))!=-1) {
+							outputStream.write(buf, 0, len);
+						}
+						outputStream.close();
+						inputStream.close();
+					}
+				}
+			}
+			productService.update(image);
 			response.sendRedirect(request.getContextPath()+"/AdminProductServlet?method=findAllByPage&currPage=1");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	
