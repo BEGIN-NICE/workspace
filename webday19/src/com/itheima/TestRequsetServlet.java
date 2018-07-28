@@ -31,6 +31,7 @@ public class TestRequsetServlet extends HttpServlet {
 			String string = (String) names.nextElement();
 			System.out.println(string);
 		}
+		response.getWriter().print("abcdefghijklmn");
 	}
 
 	/**

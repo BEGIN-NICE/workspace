@@ -19,5 +19,9 @@
 		<h3>中文乱码</h3>
 	<a href="${pageContext.request.contextPath }/FileDownLoadServlet?filename=杨过.txt">杨过.txt</a><br>
 	<a href="${pageContext.request.contextPath }/FileDownLoadServlet?filename=美女.jpg">美女.jpg</a>
+	
+	<h1>中文文件名解决下载乱码</h1>
+	<a href="${pageContext.request.contextPath }/FileDownLoadServlet2?method=demo1&filename=美女.jpg">美女.jpg</a>
+	
 </body>
 </html>
