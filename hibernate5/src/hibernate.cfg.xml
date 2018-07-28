@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql:///hibernate5</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		
+		<!-- 设置连接提供者 -->
+		<property name="#hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		
+		<!-- c3p0配置 -->
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.timeout">120</property><!-- 超时 -->
+		<property name="hibernate.c3p0.idle_test_period">3000</property> <!-- 空闲连接 -->
+		
+		
+		<!-- 数据库方言 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+ 		<!-- create-drop create update validate -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- 设置事务是否自动提交，默认是fase -->
+		<property name="hibernate.connection.autocommit">true</property>
+		
+		
+		<mapping resource="com/itheima/domain/User.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

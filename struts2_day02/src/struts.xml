@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+
+	<!-- 声明常量  来自default.properies文件-->
+	<!-- 可以帮助我们解决post请求乱码问题 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<!-- 指定访问struts2框架路径的扩展名 -->
+	<constant name="struts.action.extension" value="action"></constant>
+	<!-- 配置这项后，它会提供更加详细的报错信息，以及在struts.xml文件修改后不在需要重启服务器 -->
+	<constant name="struts.devMode" value="true"></constant>
+    <package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="myInterceptor" class="cn.heima.interceptor.MyInterceptor">
+				<param name="includeMethods">show</param>
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="myInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		
+		<action name="login" class="cn.heima.web.action.LoginAction" method="login">
+            <result name="success">/success.jsp</result>
+            <result name="failer">/login.jsp</result>
+        </action>  
+        
+        <action name="valuestack" class="cn.heima.web.action.ValueStackAction">
+        	<result name="success">/ognl.jsp</result>
+        </action>
+        <action name="vs" class="cn.heima.web.action.ValueStackActionTest">
+        	<result name="success">/ognl.jsp</result>
+        </action>
+         <action name="vs2" class="cn.heima.web.action.ValueStackActionTest2">
+        	<result name="success">/ognl2.jsp</result>
+        </action> 
+        
+         <action name="product_*" class="cn.heima.web.action.ProductAction" method="{1}">
+        	<result name="success">/product.jsp</result>
+        	<result name="login">/login.jsp</result>
+        	<interceptor-ref name="myStack"/>
+        </action>  
+        
+        
+    </package>
+	
+</struts>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	
+ 	<include file="login.xml"/>
+	<include file="ajax.xml"/>
+	<include file="demo.xml"/>
+
+
+
+	<!-- 声明常量  来自default.properies文件-->
+	<!-- 可以帮助我们解决post请求乱码问题 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<!-- 指定访问struts2框架路径的扩展名 -->
+	<constant name="struts.action.extension" value="action,,"></constant>
+	<!-- 配置这项后，它会提供更加详细的报错信息，以及在struts.xml文件修改后不在需要重启服务器 -->
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<constant name="struts.multipart.maxSize" value="20971520"/>
+	
+	<constant name="struts.custom.i18n.resources" value="filemsg"/>
+	
+    <package name="default" namespace="/" extends="struts-default">
+
+		<action name="upload" class="com.itheima.action.UploadAction" method="upload">
+            <result name="success">/success.jsp</result>
+            <result name="input">/failer.jsp</result>
+            <interceptor-ref name="fileUpload">
+            	<param name="maximumSize">1048576</param>
+            	<param name="allowedTypes">
+            		image/jpg,image/png,image/jpeg
+            	</param>
+            	<param name="allowedExtensions">
+            		jpg,png,jpeg
+            	</param>
+            </interceptor-ref>
+          	<interceptor-ref name="defaultStack"/>
+        </action>  
+        
+        <action name="uploadmany" class="com.itheima.action.UploadManyAction" method="uploads">
+            <result name="success">/success.jsp</result>
+            <result name="input">/failer.jsp</result>
+        </action> 
+    </package>
+	
+</struts>
