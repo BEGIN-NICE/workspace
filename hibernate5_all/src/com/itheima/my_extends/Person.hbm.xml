@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.my_extends">
+	<class name="Person" table="t_person">
+		<id name="id">
+			<generator class="uuid"/>
+		</id>
+		<discriminator column="type"/>
+		<property name="name" length="20"/>
+		<property name="sex" length="10"/>
+		<property name="age"/>
+		<subclass name="Student" discriminator-value="s">
+			<property name="work"/>
+		</subclass>
+		<subclass name="Teacher" discriminator-value="t">
+			<property name="salary"/>
+		</subclass>
+	</class>
+
+</hibernate-mapping>

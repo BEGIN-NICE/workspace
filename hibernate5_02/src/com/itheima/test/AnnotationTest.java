@@ -56,6 +56,7 @@ public class AnnotationTest {
 		IDCard card = new IDCard();
 		card.setCardNum("123456789");
 		card.setUser(user);
+		//user.setIdCard(card);
 		
 		session.save(card);
 		
@@ -64,6 +65,21 @@ public class AnnotationTest {
 	}
 	
 	
+	/**
+	 * 多对多注解开发的测试
+	 * 查询测试
+	 */
+	@Test
+	public void manytomanyTest3() {
+		Session session = HibernateUtil.getSession();
+		Transaction tx = session.beginTransaction();
+		
+		Student stu = session.load(Student.class, 1);
+		System.out.println(stu.getName()+"   "+stu.getTeachers());
+		
+		tx.commit();
+		session.close();
+	}
 	/**
 	 * 多对多注解开发的测试
 	 * 多对多级联删除数据(前提是建立了双向级联all)

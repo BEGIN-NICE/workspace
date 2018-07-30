@@ -21,11 +21,11 @@ public class IDCard {
 	private String id;
 	private String cardNum;
 	
-	
 	@OneToOne(targetEntity=User.class)
 	@JoinColumn(name="c_user_id")//Íâ¼üÁĞÃû
 	@Cascade(CascadeType.ALL)
 	private User user;
+	
 	public String getId() {
 		return id;
 	}

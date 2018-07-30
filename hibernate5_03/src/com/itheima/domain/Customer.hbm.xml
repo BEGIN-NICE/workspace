@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.domain">
+	<class name="Customer" table="t_customer">
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="c_name"/>
+		
+		<!-- cascade 设置级联，
+					save-update :
+					delete:
+					delete-orphan:可以从一的一端删除多的一端
+		
+			inverse 设置由哪一方来维护外键
+					true:由对方来维护
+					false : 由本方来维护
+			经测试得:由外键所在的对象的那一方来维护效率较高
+					-->
+		<set name="orders" cascade="delete" inverse="true">
+		<!-- key表示映射该表的外键名 -->
+			<key column="o_customer_id"/>
+			<one-to-many class="Order"/>
+		</set>
+	</class>
+	
+	<query name="myHql">
+		from Customer where id=:id
+	</query>
+</hibernate-mapping>    

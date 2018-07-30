@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <!-- 之类生成表 -->
+<hibernate-mapping package="com.itheima.my_extends">
+	<class name="Person" table="t_person" abstract="true">
+		<id name="id">
+			<generator class="uuid"/>
+		</id>
+		<property name="name" length="20"/>
+		<property name="sex" length="10"/>
+		<property name="age"/>
+	</class>
+	<union-subclass extends="Person" name="Student" table="t_student">
+		<property name="work"/>
+	</union-subclass>
+	<union-subclass extends="Person" name="Teacher" table="t_teacher">
+		<property name="salary"/>
+	</union-subclass>
+
+</hibernate-mapping>

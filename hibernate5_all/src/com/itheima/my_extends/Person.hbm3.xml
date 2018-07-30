@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.my_extends">
+	<class name="Person" table="t_person">
+		<id name="id">
+			<generator class="uuid"/>
+		</id>
+		<property name="name" length="20"/>
+		<property name="sex" length="10"/>
+		<property name="age"/>
+		<joined-subclass name="Student" table="t_student">
+			<key column="id"/>
+			<property name="work"/>
+		</joined-subclass>
+		<joined-subclass name="Teacher" table="t_teacher">
+			<key column="id"/>
+			<property name="salary"/>
+		</joined-subclass>
+	</class>
+
+</hibernate-mapping>
