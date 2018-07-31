@@ -26,7 +26,7 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
  		<!-- create-drop create update validate -->
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 		
 		<!-- 设置事务是否自动提交，默认是fase -->
 		<!-- <property name="hibernate.connection.autocommit">true</property> -->
@@ -34,7 +34,7 @@
 		<mapping resource="com/itheima/one_to_many/Order.hbm.xml"/>
 		<mapping resource="com/itheima/one_to_many/Customer.hbm.xml"/>
 		
-		<mapping class="com.itheima.annotation.Book"/>
+	<!-- 	<mapping class="com.itheima.annotation.Book"/>
 		<mapping class="com.itheima.annotation.Person"/>
 		
 		<mapping class="com.itheima.annotation.manytomany.Student"/>
@@ -44,6 +44,12 @@
 		<mapping class="com.itheima.annotation.onetoone.User"/>
 		
 		<mapping class="com.itheima.annotation.onetoone.Husband"/>
-		<mapping class="com.itheima.annotation.onetoone.Wife"/>
+		<mapping class="com.itheima.annotation.onetoone.Wife"/> -->
+		
+		<mapping resource="com/itheima/annotation/manytomany/Student.hbm.xml"/>
+		<mapping resource="com/itheima/annotation/manytomany/Teacher.hbm.xml"/>
+		
+	<!-- 	<mapping class="com.itheima.annotation.manytomany.Student"/>
+		<mapping class="com.itheima.annotation.manytomany.Teacher"/> -->
 	</session-factory>
 </hibernate-configuration>

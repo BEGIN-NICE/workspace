@@ -31,7 +31,7 @@ public class Student {
 	//joinColumns 它是用来描述Student与中间表中映射关系
 	//inverseJoinColumns 它使用来描述Teacher与中间表中的映射关系
 	
-	@JoinTable(name="s_t",joinColumns= {@JoinColumn(name="c_student_id",referencedColumnName="id")},
+	@JoinTable(name="s_t",joinColumns= {@JoinColumn(name="s_student_id",referencedColumnName="id")},
 	inverseJoinColumns= {@JoinColumn(name="t_teacher_id",referencedColumnName="id")})
 	@Cascade(CascadeType.ALL)
 	private Set<Teacher> teachers = new HashSet<>();

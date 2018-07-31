@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.all_6_criteria">
+	<class name="Order" table="t_order">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="money" column="o_money"/>
+		<property name="receiverInfo" column="o_receiverInfo"/>
+		<many-to-one name="c" class="Customer" column="o_customer_id" cascade="save-update"/>
+	</class>
+
+</hibernate-mapping>

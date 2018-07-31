@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.annotation.manytomany">
+	<class name="Student" table="t_student">
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name"/>
+		<set name="teachers" table="s_t" cascade="all">
+		<!-- teacher表在中间表中的字段名 -->
+			<key column="t_student_id"/>
+			<many-to-many class="Teacher" column="t_teacher_id"/>
+		</set>	
+	</class>
+
+</hibernate-mapping>

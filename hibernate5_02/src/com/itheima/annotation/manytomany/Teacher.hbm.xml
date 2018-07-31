@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.annotation.manytomany">
+	<class name="Teacher" table="t_teacher">
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name"/>
+		<set name="students" table="s_t" cascade="all" inverse="true">
+			<key column="t_teacher_id"/>
+			<many-to-many class="Student" column="t_student_id"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

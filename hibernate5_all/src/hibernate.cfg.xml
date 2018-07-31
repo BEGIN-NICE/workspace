@@ -10,13 +10,15 @@
 		<property name="hibernate.connection.password">root</property>
 		
 		<!-- 设置连接提供者  -->
-		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		<property name="hibernate.connection.provider_class">
+			org.hibernate.connection.C3P0ConnectionProvider
+		</property>
 		
 		<!-- c3p0配置 -->
 		<property name="hibernate.c3p0.max_size">20</property><!-- 最大连接数 -->
 		<property name="hibernate.c3p0.min_size">5</property><!-- 最小连接 -->
 		<property name="hibernate.c3p0.timeout">120</property><!-- 超时 -->
-		<property name="hibernate.c3p0.idle_test_period">3000</property><!-- 空闲连接 -->
+		<property name="hibernate.c3p0.idle_test_period">300</property><!-- 空闲连接 -->
 		
 		
 		<property name="show_sql">true</property>
@@ -29,11 +31,23 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		
 		<!-- 设置事务是否自动提交，默认不自动提交 -->
-		<property name="hibernate.connection.autocommit">false</property>
+		<!-- <property name="hibernate.connection.autocommit">false</property> -->
 		
-		<mapping resource="com/itheima/all_1/Customer.hbm.xml"/>
+		<!--
+ 		<mapping resource="com/itheima/all_1/Customer.hbm.xml"/>
 		<mapping resource="com/itheima/my_extends/Person.hbm3.xml"/>
+		<mapping resource="com/itheima/all_6_criteria/Customer.hbm.xml"/>
+		<mapping resource="com/itheima/all_6_criteria/Order.hbm.xml"/> 
+		-->
+		<mapping class="com.itheima.all_6_criteria.Customer"/>
+		<mapping class="com.itheima.all_6_criteria.Order"/>
+		<mapping resource="com/itheima/my_list_map/Category.hbm.xml"/>
+		<mapping resource="com/itheima/my_list_map/Book.hbm.xml"/>
+		<!-- one To one -->
+		<mapping resource="com/itheima/all_2_onetoone/User.hbm.xml"/>
+		<mapping resource="com/itheima/all_2_onetoone/IDCard.hbm.xml"/>
+		<mapping resource="com/itheima/all_2_onetoone/Wife.hbm.xml"/>
+		<mapping resource="com/itheima/all_2_onetoone/Husband.hbm.xml"/>
 		
 	</session-factory>
-
 </hibernate-configuration>

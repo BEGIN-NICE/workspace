@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.all_2_onetoone">
+	<class name="Husband" table="t_husband">
+		<id name="id">
+			<generator class="foreign">
+				<param name="property">wife</param>
+			</generator>
+		</id>
+		<property name="name"/>
+		<one-to-one name="wife" class="Wife" cascade="all" constrained="true"></one-to-one>
+	</class>
+
+</hibernate-mapping>

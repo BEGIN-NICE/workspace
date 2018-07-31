@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.my_list_map">
+	<class name="Category" table="t_category">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name" column="c_name" length="20"/>
+		<property name="author" column="c_author" length="30"/>
+		<!-- <list name="books" cascade="all" inverse="true">
+			<key column="b_category_id"/>
+			<index column="list_index"/>
+			<one-to-many class="Book"/>
+		</list> -->
+		<map name="bookMap" cascade="delete" inverse="true" >
+			<key column="b_category_id"></key>
+			<map-key column="name" type="string"/>
+			<one-to-many class="Book"/>
+		</map>
+	</class>
+
+</hibernate-mapping>

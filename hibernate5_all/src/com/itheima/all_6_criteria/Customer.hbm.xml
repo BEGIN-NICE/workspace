@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.all_6_criteria">
+	<class name="Customer" table="t_customer">
+		<id name="id">
+			<generator class="native"/>
+		</id>
+		<property name="name" column="c_name" length="20"/>
+		<set name="orders" access="delete" inverse="false">
+			<key column="o_customer_id"></key>
+			<one-to-many class="Order"/>
+		</set>
+	</class>
+</hibernate-mapping>

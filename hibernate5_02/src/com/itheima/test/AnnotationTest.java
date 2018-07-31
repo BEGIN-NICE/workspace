@@ -114,6 +114,9 @@ public class AnnotationTest {
 		Student s2 = new Student();
 		s2.setName("ÑÏ³¬ÔÆ");
 		
+		t.getStudents().add(s);
+		t2.getStudents().add(s2);
+		
 		s.getTeachers().add(t);
 		s.getTeachers().add(t2);
 		s2.getTeachers().add(t);

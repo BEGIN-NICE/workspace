@@ -1,8 +1,5 @@
 package com.itheima.test;
 
-import java.util.List;
-
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;
@@ -11,6 +8,63 @@ import com.itheima.all_1.Customer;
 import com.itheima.utils.HibernateUtil;
 
 public class All_1_Test {
+	
+	/**
+	 * 持久化对象的三种状态
+	 */
+	@Test
+	public void test6_object_status2() {
+		Session session = HibernateUtil.openSession();
+		Transaction tx = session.beginTransaction();
+
+//		Customer c = session.get(Customer.class, 4);//持久态
+		Customer c = session.load(Customer.class, 6);//持久态
+		System.out.println(c.getClass());
+		session.delete(c);
+//		System.out.println(c.getName());
+		
+		tx.commit();
+		session.close();
+		System.out.println(c.getName());//托管态
+	}
+	
+	
+	/**
+	 * 持久化对象的三种状态
+	 */
+	@Test
+	public void test6_object_status() {
+		Session session = HibernateUtil.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		Customer c = new Customer();//瞬时态
+		c.setAddr("南京");
+		c.setName("刘德华");
+		
+		session.save(c);//持久态 ，这个时候的c有OId
+		
+		tx.commit();
+		session.close();
+		System.out.println(c.getId());//托管态
+	}
+	
+	
+	
+	/**
+	 *get方式查询数据，如果数据库中没有数会返回null
+	 */
+	@Test
+	public void test5_get() {
+		Session session = HibernateUtil.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		Customer c = session.get(Customer.class, 100);
+		System.out.println(c);
+		
+		tx.commit();
+		session.close();
+	}
+	
 	
 	
 	@Test

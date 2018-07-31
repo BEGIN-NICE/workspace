@@ -86,12 +86,23 @@ public class One_to_Many_Test {
 		Customer c = new Customer();
 		c.setName("袁绍");
 		
+		
+		
 		o1.setC(c);
 		o2.setC(c);
-		
+
+		//测试设置inverse和cascade提交性能问题
+//		c.getOrders().add(o1);
+//		c.getOrders().add(o2);
+//		session.save(c);
 		session.save(o1);
 		session.save(o2);
 		
+		
+		
+
+		Customer customer = session.get(Customer.class, 1);
+		System.out.println(customer.getName());
 		
 		tx.commit();
 		session.close();

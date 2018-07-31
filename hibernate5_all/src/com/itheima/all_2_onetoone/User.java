@@ -1,30 +1,26 @@
-package com.itheima.annotation.manytomany;
-
-import java.util.HashSet;
-import java.util.Set;
+package com.itheima.all_2_onetoone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-@Entity
-@Table(name="t_teacher")
-public class Teacher {
 
+@Entity
+@Table(name="t_user")
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
 	private String name;
 	
-	@ManyToMany(targetEntity = Student.class ,mappedBy="teachers")//代表有对方来维护外键
-	@Cascade(CascadeType.ALL)
-	private Set<Student> students = new HashSet<>();
+	@OneToOne(targetEntity=IDCard.class, mappedBy="user")//外键维护权交给IDCard
+	@Cascade(CascadeType.SAVE_UPDATE)
+	private IDCard idCard;
 	public Integer getId() {
 		return id;
 	}
@@ -34,15 +30,15 @@ public class Teacher {
 	public String getName() {
 		return name;
 	}
-	
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Student> getStudents() {
-		return students;
+	public IDCard getIdCard() {
+		return idCard;
 	}
-	public void setStudents(Set<Student> students) {
-		this.students = students;
+	public void setIdCard(IDCard idCard) {
+		this.idCard = idCard;
 	}
+	
 	
 }

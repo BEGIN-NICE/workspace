@@ -1,30 +1,30 @@
-package com.itheima.annotation.manytomany;
+package com.itheima.all_6_criteria;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-@Entity
-@Table(name="t_teacher")
-public class Teacher {
 
+@Entity
+@Table(name="t_customer")
+public class Customer {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
+	@Column(name="c_name")
 	private String name;
-	
-	@ManyToMany(targetEntity = Student.class ,mappedBy="teachers")//代表有对方来维护外键
-	@Cascade(CascadeType.ALL)
-	private Set<Student> students = new HashSet<>();
+	@OneToMany(targetEntity=Order.class,mappedBy="c")
+	@Cascade(CascadeType.DELETE)
+	private Set<Order> orders = new HashSet<>(0);
 	public Integer getId() {
 		return id;
 	}
@@ -34,15 +34,18 @@ public class Teacher {
 	public String getName() {
 		return name;
 	}
-	
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Student> getStudents() {
-		return students;
+	public Set<Order> getOrders() {
+		return orders;
 	}
-	public void setStudents(Set<Student> students) {
-		this.students = students;
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + "]";
 	}
 	
 }

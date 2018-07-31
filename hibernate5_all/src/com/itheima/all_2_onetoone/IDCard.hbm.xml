@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.itheima.all_2_onetoone">
+	<class name="IDCard" table="t_idCard">
+		<id name="id">
+			<generator class="uuid"/>
+		</id>
+		<property name="cardNum" />
+		<many-to-one name="user" class="User" column="c_user_id"  cascade="all" />
+	</class>
+</hibernate-mapping>
